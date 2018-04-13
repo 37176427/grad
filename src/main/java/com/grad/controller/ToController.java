@@ -18,4 +18,8 @@ public class ToController {
     public String index(){
         return "index";
     }
+    @RequestMapping("toframe")
+    public String frame(){
+        return "frame";
+    }
 }

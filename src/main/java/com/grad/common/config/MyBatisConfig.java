@@ -1,5 +1,7 @@
 package com.grad.common.config;
 
+import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 描述 ：
@@ -34,6 +37,19 @@ public class MyBatisConfig {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(metaDb);
         bean.setTypeAliasesPackage(getTypeAliasePackages());
+
+        //分页插件
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("reasonable", "true");
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("returnPageInfo", "check");
+        properties.setProperty("params", "count=countSql");
+        pageHelper.setProperties(properties);
+
+        //添加插件
+        bean.setPlugins(new Interceptor[]{pageHelper});
+
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         //添加mapper文件映射位置

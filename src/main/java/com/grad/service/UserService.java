@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 描述 ：
  * 作者 ：WangYunHe
@@ -17,9 +19,22 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-
+    @Transactional(readOnly = true)
     public User findByNameAndPassword(String name,String password){
         User u = userDao.findByNameAndPassword(name,password);
         return u;
+    }
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        List<User> list = userDao.findAll();
+        return list;
+    }
+    @Transactional(readOnly = true)
+    public User findUserById(Integer id) {
+        return userDao.findUserById(id);
+    }
+
+    public void deleteUserById(Integer id) {
+        userDao.deleteUserById(id);
     }
 }

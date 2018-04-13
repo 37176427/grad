@@ -4,6 +4,8 @@ import com.grad.eneity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 描述 ：
  * 作者 ：WangYunHe
@@ -12,4 +14,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
     User findByNameAndPassword(@Param("name") String name, @Param("password") String password);
+
+    List<User> findAll();
+
+    User findUserById(Integer id);
+
+    void deleteUserById(Integer id);
 }

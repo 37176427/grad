@@ -13,7 +13,7 @@ import java.io.IOException;
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 14:29
  **/
-@WebFilter(filterName = "userFilter", urlPatterns = "/*")
+@WebFilter(filterName = "userFilter", urlPatterns = "/a.jsp" )
 public class UserFilter implements Filter {
     @Override
     public void destroy() {
@@ -28,7 +28,8 @@ public class UserFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         //如果是登录页面 放行
-        if (httpServletRequest.getRequestURI().contains("login")) {
+        if (httpServletRequest.getRequestURI().contains("login") ||httpServletRequest.getRequestURI().contains("tologin")
+                ||httpServletRequest.getRequestURI().contains("frame")) {
             chain.doFilter(httpServletRequest, httpServletResponse);
         }else
         {
@@ -39,7 +40,7 @@ public class UserFilter implements Filter {
             }
             //拦截
             httpServletRequest.getSession().setAttribute("msg","你还没有登录！");
-            httpServletResponse.sendRedirect("tologin");
+            httpServletResponse.sendRedirect("/login.jsp");
             return;
         }
 

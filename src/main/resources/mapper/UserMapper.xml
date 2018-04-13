@@ -6,4 +6,15 @@
         SELECT * FROM user  WHERE name=#{name} AND password=#{password}
     </select>
 
+    <select id="findAll" resultType="com.grad.eneity.User">
+        SELECT * FROM user WHERE 1=1;
+    </select>
+    
+    <select id="findUserById" parameterType="java.lang.Integer" resultType="com.grad.eneity.User">
+        SELECT * FROM user WHERE id=#{id}
+    </select>
+    
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        DELETE FROM user where id=#{id}
+    </delete>
 </mapper>
