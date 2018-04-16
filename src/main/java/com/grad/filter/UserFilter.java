@@ -7,13 +7,15 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * 描述 ：
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 14:29
  **/
-@WebFilter(filterName = "userFilter", urlPatterns = "/a.jsp" )
+//todo 路径未完善
+//@WebFilter(filterName = "userFilter", urlPatterns = "/*" )
 public class UserFilter implements Filter {
     @Override
     public void destroy() {
@@ -27,9 +29,10 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        //如果是登录页面 放行
-        if (httpServletRequest.getRequestURI().contains("login") ||httpServletRequest.getRequestURI().contains("tologin")
-                ||httpServletRequest.getRequestURI().contains("frame")) {
+        String url = httpServletRequest.getRequestURI();
+        System.out.println("过滤："+url);
+        //如果是登录 注销页面 放行
+        if (url.contains("login") ||url.contains("tologin") || url.contains("logout")) {
             chain.doFilter(httpServletRequest, httpServletResponse);
         }else
         {
@@ -39,9 +42,18 @@ public class UserFilter implements Filter {
                 chain.doFilter(httpServletRequest, httpServletResponse);
             }
             //拦截
-            httpServletRequest.getSession().setAttribute("msg","你还没有登录！");
-            httpServletResponse.sendRedirect("/login.jsp");
-            return;
+            httpServletResponse.setContentType("text/html;charset=utf-8");
+            PrintWriter out = httpServletResponse.getWriter();
+            String loginPage = "/tologin";
+            StringBuilder builder = new StringBuilder();
+            builder.append("<script type=\"text/javascript\">");
+            builder.append("alert('你还没有登录！请登录后操作');");
+            builder.append("window.top.location.href='");
+            builder.append(loginPage);
+            builder.append("';");
+            builder.append("</script>");
+            out.print(builder.toString());
+            //httpServletResponse.sendRedirect("/tologin");
         }
 
     }

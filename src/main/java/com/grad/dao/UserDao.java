@@ -20,4 +20,18 @@ public interface UserDao {
     User findUserById(Integer id);
 
     void deleteUserById(Integer id);
+
+    List<User> initPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+    Integer total();
+
+    Integer findtotalBySampleName(String userName);
+
+    List<User> initQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize,@Param("userName") String userName);
+
+    List<User> findByName(String userName);
+
+    void addUser(User user);
+
+    void updateUser(User user);
 }

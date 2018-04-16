@@ -17,4 +17,51 @@
     <delete id="deleteUserById" parameterType="java.lang.Integer">
         DELETE FROM user where id=#{id}
     </delete>
+
+    <!--进行分页-->
+    <select id="initPaging" resultType="com.grad.eneity.User">
+        SELECT *
+        FROM user
+        ORDER BY id DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+    <!--查询总记录数-->
+    <select id="total" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM user
+    </select>
+    <!--带参数查询总数-->
+    <select id="findtotalBySampleName" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM user
+        WHERE name=#{username}
+    </select>
+    <!--带参数的查询-->
+    <select id="initQueryPaging" resultType="com.grad.eneity.User">
+        SELECT *
+        FROM user WHERE name=#{userName}
+        ORDER BY id DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+    <!--根据名称查询-->
+    <select id="findByName" parameterType="string" resultType="com.grad.eneity.User">
+        SELECT  * FROM  user
+        WHERE
+        name=#{userName}
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="com.grad.eneity.User">
+        INSERT INTO user(name,password,realName,permission)
+        VALUES (#{name},#{password},#{realName},#{permission})
+    </insert>
+    <!--更新用户信息-->
+    <update id="updateUser" parameterType="com.grad.eneity.User">
+        UPDATE user SET
+            name=#{name},
+            realName=#{realName},
+            password=#{password},
+            permission=#{permission}
+        WHERE id=#{id}
+    </update>
 </mapper>

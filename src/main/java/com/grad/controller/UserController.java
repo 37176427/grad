@@ -1,11 +1,13 @@
 package com.grad.controller;
 
+import com.grad.common.eneity.QueryResultObject;
 import com.grad.eneity.User;
 import com.grad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 描述 ：
@@ -21,46 +24,47 @@ import java.util.List;
  **/
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/system/user")
 public class UserController {
 
     @Autowired
     private UserService us;
-    private HttpSession session;
 
-    @RequestMapping("findAll")
-    public String userList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        System.out.println(user.getPermission());
-        if(user.getPermission()!=2){
-            PrintWriter out = response.getWriter();
-            out.print("<script language=\"javascript\">alert('登录失败！')");
-            return "toframe";
-        }
-        List<User> list = us.findAll();
-        request.getSession().setAttribute("list",list);
-        return "userList";
+    /**
+     *分页查询
+     */
+    @RequestMapping("/initPaging")
+    @ResponseBody
+    public QueryResultObject initPaging(Integer pageNumber, Integer pageSize, String userName){
+        QueryResultObject object = new QueryResultObject();
+        Map<String, Object> map = us.limitQuery(pageNumber, pageSize, userName);
+        object.setMsg("查询成功");
+        object.setData(map);
+        object.setResult(true);
+        return object;
     }
 
-    @RequestMapping("add")
-    public String userList()
-    {
-        return "addUser";
+    /**
+     * 根据名称单个查询
+     */
+    @RequestMapping("queryByName")
+    @ResponseBody
+    public QueryResultObject queryByName(String userName){
+        return us.findByName(userName);
     }
 
-    @RequestMapping("edit")
-    public String edit(HttpServletRequest request,@RequestParam("id")Integer id)
-    {
-        User u = us.findUserById(id);
-        request.getSession().setAttribute("u",u);
-        return "editUser";
+    //添加用户
+    @RequestMapping("/add")
+    @ResponseBody
+    public QueryResultObject addUser(User user) {
+        return us.addUserService(user);
     }
 
-    @RequestMapping("delete")
-    public String delete(@RequestParam("id")Integer id)
-    {
-        us.deleteUserById(id);
-        return "findAll";
+    //修改用户
+    @RequestMapping("/update")
+    @ResponseBody
+    public QueryResultObject updateUser(User user){
+        return us.updateUserService(user);
     }
+
 }

@@ -10,16 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 public class ToController {
+    //登录页
     @RequestMapping("tologin")
     public String login(){
-        return "login";
+        return "view/login";
     }
     @RequestMapping("toindex")
     public String index(){
-        return "index";
+        return "view/index";
     }
-    @RequestMapping("toframe")
-    public String frame(){
-        return "frame";
+    @RequestMapping("show")
+    //首页
+    public String show(){
+        return "view/shouye";
     }
+    //用户信息页
+    @RequestMapping("userInfo")
+    public String userInfo(){
+        return "view/userInfo";
+    }
+
 }
