@@ -32,7 +32,7 @@
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal5">新增</button>
                                 <button type="button" id ="edit" class="btn btn-warning" data-toggle="modal" >修改</button>
-                                <button type="button" id ="delete" class="btn btn-danger" data-toggle="modal">删除</button>
+                                <button type="button" id ="delUser" class="btn btn-danger" data-toggle="modal">删除</button>
                                 <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入用户名称"></label>
                                 <button id="search" style="left: 350px;overflow-x:visible;overflow-y:visible;" type="button" class="btn btn-primary">查询</button>
                                 <button id="reset" type="button" style="left:370px;overflow-x:visible;overflow-y:visible;" class="btn btn-default">重置</button>
@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户密码：</label>
                             <div class="col-sm-8">
-                                <input id="password" type="text" maxlength="100" class="form-control" name="password">
+                                <input id="password" type="text" minlength="6" maxlength="20" class="form-control" name="password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -104,7 +104,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">修改工具</h4>
+                    <h4 class="modal-title">修改用户</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal m-t" id="commentForm" name="commentForm" action="/system/user/update" method="post">
@@ -135,6 +135,69 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
                             <button type="submit"  class="btn btn-primary" >保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<#--删除modal-->
+    <div class="modal inmodal fade" id="delModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">确定删除这个用户 ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal m-t" id="delForm"
+                          action="/system/user/delUser" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户姓名：</label>
+                            <div class="input-group">
+                                <input id="delRealName" type="url" class="form-control" name="realName"
+                                       required="" readonly="readonly"
+                                       aria-required="true" style="width: 650px;">
+                                <input id="delName" type="hidden" class="form-control" name="name"
+                                       required="" readonly="readonly"
+                                       aria-required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                            <button id="submit" class="btn btn-primary" type="submit">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="batchDelModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">确定要删除这些用户吗 ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal m-t" id="batchDelForm"
+                          action="/system/user/batchDelUser" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户姓名：</label>
+                            <div class="input-group">
+                                <textarea id="batchRealName" type="text" class="form-control" name="realName" rows="10"
+                                          required="" readonly="readonly" style="width: 650px;"
+                                ></textarea>
+                                <input id="batchId" type="hidden" class="form-control" name="ids"
+                                       required="" readonly="readonly"
+                                       aria-required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                            <button class="btn btn-primary" type="submit">确定</button>
                         </div>
                     </form>
                 </div>

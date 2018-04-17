@@ -5,6 +5,7 @@ import com.grad.eneity.User;
 import com.grad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,21 +68,61 @@ public class UserController {
         return us.updateUserService(user);
     }
 
-    //删除用户
-    @RequestMapping("del")
+    /**
+     * 根据追踪name删除用户信息
+     */
     @ResponseBody
-    public void delUser(HttpServletRequest request, HttpServletResponse response){
-        String items = request.getParameter("delitems");
-        String[] strs = items.split(",");
-        for (int i = 0; i < strs.length; i++) {
-            try {
-                System.out.println("user:"+strs[i]);
-                int a = Integer.parseInt(strs[i]);
-                System.out.println("id:"+a);
-                //us.delById(a);
-            } catch (Exception e) {
+    @PostMapping(value = "/delUser")
+    public QueryResultObject delTrace(String name, String realName) {
+        QueryResultObject object = new QueryResultObject();
+        //查询工具编号
+        List<User> byName = us.findByNameList(name);
+        if (byName.size() > 0) {
+            if (realName != null && !"".equals(realName)) {
+                //获取编号
+                Integer id = byName.get(0).getId();
+                Integer integer = us.delByCondition(id, realName);
+                if (integer > 0) {
+                    object.setResult(true);
+                    object.setMsg("删除成功");
+                } else {
+                    object.setResult(false);
+                    object.setMsg("删除失败，请稍后尝试");
+                }
+            } else {
+                object.setMsg("删除失败,请检查要删除的url的正确性");
+                object.setResult(false);
             }
+        } else {
+            object.setResult(false);
+            object.setMsg("删除失败，请确定工具名称的正确性");
         }
+        return object;
     }
 
+    /**
+     * 批量删除用户信息
+     * @param ids 采用","分隔的字符串
+     * @return 删除结果
+     */
+    @PostMapping(value = "/batchDelUser")
+    @ResponseBody
+    public QueryResultObject batchDelTrace(String ids) {
+        QueryResultObject object = new QueryResultObject();
+        if (ids != null && ids.length() > 0) {
+            String[] array = ids.split(",");
+            int counter = us.batchDelUser(array);
+            if (counter > 0 && counter == array.length) {
+                object.setMsg("删除成功");
+                object.setResult(true);
+            } else {
+                object.setMsg("部分删除成功");
+                object.setResult(true);
+            }
+        } else {
+            object.setResult(false);
+            object.setMsg("请检查要删除的数据的准确性");
+        }
+        return object;
+    }
 }

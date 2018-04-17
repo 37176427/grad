@@ -133,5 +133,105 @@ $(function () {
         }
     });
 
+    //点击删除按钮事件
+    $("#delUser").click(function () {
+        //先判断有没有选择一条数据
+        var ta = $("#exampleTableEvents").bootstrapTable('getAllSelections');
+        if (ta.length > 1) {
+            var text = "";
+            var checkId = "";
+            //获取所有的url
+            $.each(ta, function (i, row) {
+                //赋值
+                text += row.realName + "\n";
+                checkId += row.id + ",";
+            });
+            checkId = checkId.substring(0, checkId.lastIndexOf(","));
+            $("#batchRealName").val(text);
+            alert(checkId);
+            $("#batchId").val(checkId);
+
+            $("#batchDelModal").modal("show");
+        }
+        if (ta.length === 0) {
+            swal({
+                title: "警告",
+                text: "请选择一条数据",
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: true
+            }, function () {
+            });
+        }
+        if (ta.length == 1) {
+            $.each(ta, function (i, row) {
+                //赋值
+                $("#delRealName").val(row.realName);
+                $("#delName").val(row.name);
+            });
+            $("#delModal").modal("show");
+        }
+    });
+    // 提交批量删除表单
+    $("#batchDelForm").ajaxForm(function (data) {
+        var msg = data.msg;
+        if (data.result) {
+            swal({
+                title: "成功",
+                text: msg,
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: true
+            }, function () {
+            });
+            //关闭显示窗口
+            $("#batchDelModal").modal("hide");
+            //重新加载表格数据
+            $('#exampleTableEvents').bootstrapTable("refresh", {
+                url: "/system/user/initPaging"
+            });
+        }
+        if (!data.result) {
+            swal({
+                title: "警告",
+                text: msg,
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: true
+            }, function () {
+            });
+        }
+    });
+
+    // 提交删除表单
+    $("#delForm").ajaxForm(function (data) {
+        var msg = data.msg;
+        if (data.result) {
+            swal({
+                title: "成功",
+                text: msg,
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: true
+            }, function () {
+            });
+            //关闭显示窗口
+            $("#delModal").modal("hide");
+            //重新加载表格数据
+            $('#exampleTableEvents').bootstrapTable("refresh", {
+                url: "/system/user/initPaging"
+            });
+        }
+        if (!data.result) {
+            swal({
+                title: "警告",
+                text: msg,
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: true
+            }, function () {
+            });
+        }
+    });
 })
 

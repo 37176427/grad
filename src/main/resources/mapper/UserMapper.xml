@@ -64,4 +64,18 @@
             permission=#{permission}
         WHERE id=#{id}
     </update>
+    <!--条件删除-->
+    <delete id="delByCondition">
+        DELETE FROM user
+        WHERE id = #{id}
+        AND realName = #{realName}
+    </delete>
+    <!--批量删除用户信息-->
+    <delete id="batchDelUser" >
+        DELETE  FROM user
+        WHERE id IN
+        <foreach collection="array" item = "id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

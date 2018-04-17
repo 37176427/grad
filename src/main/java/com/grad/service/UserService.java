@@ -244,4 +244,21 @@ public class UserService {
         userDao.updateUser(user);
     }
 
+    /**
+     * 根据条件删除用户信息
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public Integer delByCondition(Integer id, String realName) {
+        return userDao.delByCondition(id, realName);
+    }
+
+    /**
+     * 批量删除
+     * @param array id集合
+     * @return 删除成功的结果数
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public int batchDelUser(String[] array) {
+        return userDao.batchDelUser(array);
+    }
 }

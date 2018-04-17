@@ -34,4 +34,12 @@ public interface UserDao {
     void addUser(User user);
 
     void updateUser(User user);
+
+    /**
+     * 根据条件删除跟踪信息
+     * @return 影响的记录数
+     */
+    Integer delByCondition(@Param("id") Integer id, @Param("realName") String realName);
+
+    int batchDelUser(String[] array);
 }

@@ -78,7 +78,7 @@
     <!--右侧部分开始-->
     <div id="page-wrapper" class="gray-bg">
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframeContent" width="100%" height="100%" src="/show" frameborder="0" seamless></iframe>
+            <iframe class="J_iframeContent" width="100%" height="100%" src="/show" frameborder="0" ></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2000-2018 <a href="https://github.com/37176427/grad/" target="_blank">在github上寻找</a>
