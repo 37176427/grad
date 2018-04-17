@@ -32,7 +32,7 @@
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal5">新增</button>
                                 <button type="button" id ="edit" class="btn btn-warning" data-toggle="modal" >修改</button>
-                                <button type="button" id ="delete" class="btn btn-warning" data-toggle="modal">删除</button>
+                                <button type="button" id ="delete" class="btn btn-danger" data-toggle="modal">删除</button>
                                 <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入用户名称"></label>
                                 <button id="search" style="left: 350px;overflow-x:visible;overflow-y:visible;" type="button" class="btn btn-primary">查询</button>
                                 <button id="reset" type="button" style="left:370px;overflow-x:visible;overflow-y:visible;" class="btn btn-default">重置</button>
@@ -41,7 +41,7 @@
                                 <thead>
                                 <tr>
                                     <th data-field="state" data-checkbox="true"></th>
-                                    <th data-field="id" data-switchable="false">用户ID</th>
+                                    <th data-field="id" >用户ID</th>
                                     <th data-field="name">登录名</th>
                                     <th data-field="realName">姓名</th>
                                     <th data-field="password">密码</th>
@@ -111,7 +111,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户账号：</label>
                             <div class="col-sm-8">
-                                <input id="userNameEdit"  name="name" minlength="1" maxlength="100" type="text" class="form-control" required="" aria-required="true">
+                                <input id="userNameEdit"  name="name" minlength="1" maxlength="100" type="text" class="form-control" readonly="true" required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">

@@ -67,4 +67,21 @@ public class UserController {
         return us.updateUserService(user);
     }
 
+    //删除用户
+    @RequestMapping("del")
+    @ResponseBody
+    public void delUser(HttpServletRequest request, HttpServletResponse response){
+        String items = request.getParameter("delitems");
+        String[] strs = items.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                System.out.println("user:"+strs[i]);
+                int a = Integer.parseInt(strs[i]);
+                System.out.println("id:"+a);
+                //us.delById(a);
+            } catch (Exception e) {
+            }
+        }
+    }
+
 }

@@ -94,7 +94,7 @@ $(function () {
             });
             //自动刷新
             /*$('#exampleTableEvents').bootstrapTable("refresh",{
-                url: "/system/sample/findAll"});*/
+                url: "/system/user/findAll"});*/
             window.location.reload();
         }
         if (!data.result) {
@@ -125,7 +125,6 @@ $(function () {
             $.each(checked,function (i,n) {
                 $("#userNameEdit").val(n.name);
                 $("#realName1").val(n.realName);
-                $("#nameEn").val(n.nameEn);
                 $("#password1").val(n.password);
                 $("#permission1").val(n.permission);
             });
@@ -133,33 +132,6 @@ $(function () {
             $("#myModal6").modal('show');
         }
     });
-    $("#delete").click(function () {
-        var checked = new Array();
-        checked = document.getElementsByName("btSelectedItem");
-        if(confirm("确认删除选中的用户吗?")){
-            //执行删除操作
-            for (var i=0; i<checked.length;i++){
-                $.ajax({
-                    type: "get",
-                    url: "/system/user/delete",
-                    data: {userName: checked[i]},
-                    dataType: "json",
-                    success: function (data) {
-                        if(!data.result){
-                            $("#userNameAdd").val("");
-                            swal({
-                                title: "警告",
-                                text: data.msg,
-                                type: "warning",
-                                confirmButtonColor: "#dd1320",
-                                closeOnConfirm: true
-                            }, function () {
-                            });
-                        }
-                    }
-                });
-            }
-        }
 
-    })
-});
+})
+

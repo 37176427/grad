@@ -221,9 +221,9 @@ public class UserService {
             userResult.get(0).setPassword(user.getPassword());
             userResult.get(0).setPermission(user.getPermission());
         }catch (Exception e){
-            logger.error("查询user表出错! UserName= " +user.getName() + e.toString());
+            logger.error("用户名创建后不可更改! UserName= " +user.getName() + e.toString());
             msg.setResult(false);
-            msg.setMsg("查询ToolManager表出错! UserName= " +user.getName());
+            msg.setMsg("用户名创建后不可更改! UserName= " +user.getName());
             return msg;
         }
         try {
@@ -232,15 +232,16 @@ public class UserService {
             msg.setMsg("更新成功!");
             return msg;
         }catch (Exception e){
-            logger.error("更新ToolManager表出错! UserName= " +user.getName() + e.toString());
+            logger.error("更新user表出错! UserName= " +user.getName() + e.toString());
             msg.setResult(false);
-            msg.setMsg("更新ToolManger表出错! UserName= " +user.getName());
+            msg.setMsg("更新user表出错! UserName= " +user.getName());
             return msg;
         }
     }
     //更新用户操作
     @Transactional(readOnly = false,rollbackFor = Exception.class)
-    private void updateUser(User user) {
+    public void updateUser(User user) {
         userDao.updateUser(user);
     }
+
 }
