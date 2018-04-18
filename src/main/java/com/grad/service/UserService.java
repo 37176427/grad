@@ -163,7 +163,7 @@ public class UserService {
         }catch (Exception e){
             logger.error("插入User表出错!" + "UserName= " + user.getName() + e.toString());
             msg.setResult(false);
-            msg.setMsg("插入ToolManager表出错!" + "UserName= " + user.getName());
+            msg.setMsg("插入User表出错!" + "UserName= " + user.getName());
             return msg;
         }
         msg.setResult(true);

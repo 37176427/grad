@@ -37,9 +37,9 @@
                     </a>
                 </li>
                 <li>
-                    <a class="J_menuPage" href="/toolInfo">
-                        <i class="fa fa-cutlery"></i>
-                        <span class="nav-label">项目申报</span>
+                    <a class="J_menuPage" href="/project">
+                        <i class="fa fa-archive"></i>
+                        <span class="nav-label">项目管理</span>
                     </a>
                 </li>
                 <li>
@@ -50,9 +50,9 @@
                 </li>
                 <#if Session.user?exists && Session.user.permission == 1>
                     <li>
-                        <a class="J_menuPage" href="/softwareInfo">
+                        <a class="J_menuPage" href="/projectManager">
                             <i class="fa fa-cube"></i>
-                            <span class="nav-label">项目管理</span>
+                            <span class="nav-label">项目审批</span>
                         </a>
                     </li>
                 </#if>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.grad.dao.ProjectDao">
+
+
+
+    <!--带参数查询总数-->
+    <select id="findtotalByNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM project
+        WHERE number=#{number}
+    </select>
+
+    <!--带参数的查询-->
+    <select id="initQueryPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project WHERE number=#{number}
+        ORDER BY id DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--进行分页-->
+    <select id="initPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        ORDER BY id DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--查询总记录数-->
+    <select id="total" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM project
+    </select>
+
+    <!--添加项目-->
+    <insert id="addProject" parameterType="com.grad.eneity.Project">
+        INSERT INTO `project` (
+            `number`,
+            `name`,
+            `manager`,
+            `member`,
+            `nature`,
+            `desc`,
+            `awards`,
+            `createTime`,
+            `status`,
+            `createUser`
+        )VALUES
+            (
+                #{number},
+                #{name},
+                #{manager},
+                #{member},
+                #{nature},
+                #{desc},
+                #{awards},
+                #{createTime},
+                #{status},
+                #{createUser}
+            )
+    </insert>
+    <!--根据number查询-->
+    <select id="findByNumber" parameterType="java.lang.Integer" resultType="com.grad.eneity.Project">
+        select *
+        from project
+        WHERE number = #{number}
+    </select>
+    <!--更新项目-->
+    <update id="updateProject" parameterType="com.grad.eneity.Project">
+        UPDATE project SET
+            `name`=#{name},
+            `manager`=#{manager},
+            `member`=#{member},
+            `nature`=#{nature},
+            `desc`=#{desc},
+            `awards`=#{awards},
+            `createTime`=#{createTime},
+            `status`=#{status},
+            `number`=#{number}
+        where id=#{id}
+    </update>
+</mapper>

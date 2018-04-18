@@ -16,7 +16,7 @@
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
-    <title>用户信息</title>
+    <title>项目信息</title>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -27,13 +27,12 @@
                 <div class="col-sm-12">
                     <!-- Example Events -->
                     <div class="example-wrap">
-                        <h4 class="example-title">用户信息</h4>
+                        <h4 class="example-title">项目信息</h4>
                         <div class="example">
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal5">新增</button>
-                                <button type="button" id ="edit" class="btn btn-warning" data-toggle="modal" >修改</button>
-                                <button type="button" id ="delUser" class="btn btn-danger" data-toggle="modal">删除</button>
-                                <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入用户名称"></label>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal5">项目申报</button>
+                                <button type="button" id ="edit" class="btn btn-warning" data-toggle="modal" >项目修改</button>
+                                <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入项目名称"></label>
                                 <button id="search" style="left: 350px;overflow-x:visible;overflow-y:visible;" type="button" class="btn btn-primary">查询</button>
                                 <button id="reset" type="button" style="left:370px;overflow-x:visible;overflow-y:visible;" class="btn btn-default">重置</button>
                             </div>
@@ -41,11 +40,16 @@
                                 <thead>
                                 <tr>
                                     <th data-field="state" data-checkbox="true"></th>
-                                    <th data-field="id" >用户ID</th>
-                                    <th data-field="name">登录名</th>
-                                    <th data-field="realName">姓名</th>
-                                    <th data-field="password">密码</th>
-                                    <th data-field="permission">权限</th>
+                                    <th data-field="number">项目编号</th>
+                                    <th data-field="name">项目名称</th>
+                                    <th data-field="manager">负责人</th>
+                                    <th data-field="member">项目成员</th>
+                                    <th data-field="nature">项目类型</th>
+                                    <th data-field="desc">具体描述</th>
+                                    <th data-field="awards">获奖情况</th>
+                                    <th data-field="createTime">申请时间</th>
+                                    <th data-field="status">审核情况</th>
+                                    <th data-field="createUser">创建人</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -62,32 +66,50 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">新增用户</h4>
+                    <h4 class="modal-title">项目申报</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal m-t" id="commentForm2" name="commentForm2" action="/system/user/add" method="post">
+                    <form class="form-horizontal m-t" id="commentForm2" name="commentForm2" action="/project/pro/add" method="post">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用户账号：</label>
+                            <label class="col-sm-3 control-label">项目编号：</label>
                             <div class="col-sm-8">
-                                <input id="userNameAdd"  name="name" minlength="1" maxlength="100" type="text" class="form-control" required="" aria-required="true" >
+                                <input id="number"  name="number" min="1" minlength="1" maxlength="20" type="number" class="form-control" required="" aria-required="true" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">姓名：</label>
+                            <label class="col-sm-3 control-label">项目名称</label>
                             <div class="col-sm-8">
-                                <input id="realName" type="text" maxlength="100" class="form-control" name="realName" >
+                                <input id="name" type="text" minlength="1" maxlength="50" class="form-control" name="name" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用户密码：</label>
+                            <label class="col-sm-3 control-label">负责人：</label>
                             <div class="col-sm-8">
-                                <input id="password" type="text" minlength="6" maxlength="20" class="form-control" name="password">
+                                <input id="manager" type="text" minlength="1" maxlength="12" class="form-control" name="manager" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">权限：</label>
+                            <label class="col-sm-3 control-label">项目成员：</label>
                             <div class="col-sm-8">
-                                <input id="permission" type="number" min="0" max="2"  class="form-control" name="permission">
+                                <input id="member" type="text" minlength="1"  class="form-control" name="member">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">项目类型：</label>
+                            <div class="col-sm-8">
+                                <input id="nature" type="text" minlength="1" class="form-control" name="nature">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">具体描述：</label>
+                            <div class="col-sm-8">
+                                <input id="desc" type="text" minlength="1"  class="form-control" name="desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">获奖情况：</label>
+                            <div class="col-sm-8">
+                                <input id="awards" type="text" minlength="1" class="form-control" name="awards">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -104,32 +126,60 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">修改用户</h4>
+                    <h4 class="modal-title">修改项目</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal m-t" id="commentForm" name="commentForm" action="/system/user/update" method="post">
+                    <form class="form-horizontal m-t" id="commentForm" name="commentForm" action="/project/pro/edit" method="post">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用户账号：</label>
+                            <label class="col-sm-3 control-label">项目编号：</label>
                             <div class="col-sm-8">
-                                <input id="userNameEdit"  name="name" minlength="1" maxlength="100" type="text" class="form-control" readonly="true" required="" aria-required="true">
+                                <input id="number1"  name="number" minlength="1" maxlength="20" type="number" readonly="true" class="form-control"  required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">姓名：</label>
+                            <label class="col-sm-3 control-label">项目名称：</label>
                             <div class="col-sm-8">
-                                <input id="realName1" type="text" maxlength="100" class="form-control" name="realName" >
+                                <input id="name1" type="text" maxlength="100" class="form-control" name="name" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用户密码</label>
+                            <label class="col-sm-3 control-label">负责人</label>
                             <div class="col-sm-8">
-                                <input id="password1" type="text" maxlength="100" class="form-control" name="password">
+                                <input id="manager1" type="text" maxlength="100" class="form-control" name="manager">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">权限</label>
+                            <label class="col-sm-3 control-label">项目成员</label>
                             <div class="col-sm-8">
-                                <input id="permission1" type="number" min="0" max="2" class="form-control" name="permission">
+                                <input id="member1" type="text" maxlength="100" class="form-control" name="member">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">项目性质</label>
+                            <div class="col-sm-8">
+                                <input id="nature1" type="text"  maxlength="100" class="form-control" name="nature">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">项目描述</label>
+                            <div class="col-sm-8">
+                                <input id="desc1" type="text" maxlength="100" class="form-control" name="desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">获奖情况</label>
+                            <div class="col-sm-8">
+                                <input id="awards1" type="text" maxlength="100" class="form-control" name="awards">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input id="createUser1" type="hidden" maxlength="100" class="form-control" name="createUser">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input id="status1" type="hidden" maxlength="100" class="form-control" name="status">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -248,6 +298,6 @@
 <!-- util JS-->
 <script src="/static/js/util/dateFtt.js"></script>
 <!--user.js-->
-<script src="/static/js/ctfx/user.js"></script>
+<script src="/static/js/ctfx/project.js"></script>
 </body>
 </html>

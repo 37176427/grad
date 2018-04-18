@@ -29,5 +29,8 @@ public class ToController {
     public String userInfo(){
         return "view/userInfo";
     }
+    //项目管理页
+    @RequestMapping("project")
+    public String project(){ return "view/project"; }
 
 }
