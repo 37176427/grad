@@ -16,7 +16,7 @@ public interface ProjectDao {
 
     Integer findtotalByNumber(Integer number);
 
-    List<Project> initQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("number") Integer number);
+    List<Project> initQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("name") String name);
 
     List<Project> initPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
@@ -27,4 +27,16 @@ public interface ProjectDao {
     Project findByNumber(Integer number);
 
     void updateProject(Project projectResult);
+
+    Integer findtotalByName(String projectName);
+
+    Integer findtotalByUserName(@Param("createUser") String createUser);
+
+    List<Project> initQueryPagingByUserName(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("createUser") String createUser);
+
+    Integer delById(Integer id);
+
+    Project findById(Integer id);
+
+    int batchDel(String[] array);
 }

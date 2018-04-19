@@ -33,7 +33,7 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal5">新增</button>
                                 <button type="button" id ="edit" class="btn btn-warning" data-toggle="modal" >修改</button>
                                 <button type="button" id ="delUser" class="btn btn-danger" data-toggle="modal">删除</button>
-                                <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入用户名称"></label>
+                                <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入用户账号"></label>
                                 <button id="search" style="left: 350px;overflow-x:visible;overflow-y:visible;" type="button" class="btn btn-primary">查询</button>
                                 <button id="reset" type="button" style="left:370px;overflow-x:visible;overflow-y:visible;" class="btn btn-default">重置</button>
                             </div>

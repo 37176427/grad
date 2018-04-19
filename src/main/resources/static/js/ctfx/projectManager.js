@@ -1,33 +1,4 @@
 $(function () {
-    //提交表单
-    $('#commentForm2').ajaxForm(function (data) {
-        var msg = data.msg;
-        if (data.result) {
-            $('#myModal5').modal('hide');
-            swal({
-                title: "成功",
-                text: msg,
-                type: "success",
-                confirmButtonColor: "#24dd27",
-                closeOnConfirm: true
-            }, function () {
-            });
-            //自动刷新
-            /*$('#exampleTableEvents').bootstrapTable("refresh",{
-                url: "/system/sample/findAll"});*/
-            window.location.reload();
-        }
-        if (!data.result) {
-            swal({
-                title: "失败",
-                text: msg,
-                type: "warning",
-                confirmButtonColor: "#dd1320",
-                closeOnConfirm: true
-            }, function () {
-            });
-        }
-    });
     //进行初始化表格数据
     initTable(null);
     //重置按钮
@@ -51,16 +22,16 @@ $(function () {
             initTable(projectName);
         }
     });
-    //我创建的按钮
-    $("#myProject").click(function () {
-        var realName = $("#nowUserName").val();
-        initTableByUserName(realName);
+    //已审核的按钮
+    $("#hasChecked").click(function () {
+        var status = 1;
+        initTableByStatus(status);
     });
-    function initTableByUserName(realName) {
+    function initTableByStatus(status) {
         $("#exampleTableEvents").bootstrapTable("destroy");
         $("#exampleTableEvents").bootstrapTable({
             method: "get",  //使用get请求到服务器获取数据
-            url: "/project/pro/initPagingByName",
+            url: "/projectManager/initPagingByStatus",
             editable: true,//开启编辑模式
             //search: true,//搜索框
             pagination: true,
@@ -81,11 +52,11 @@ $(function () {
             },
             queryParams: function queryParams(params) {   //设置查询参数
                 var param = {};
-                if (realName !== null && realName !== "") {
+                if (status !== null && status !== "") {
                     param = {
                         pageNumber: params.pageNumber,
                         pageSize: params.pageSize,
-                        realName: realName
+                        status: status
                     }
                 } else {
                     param = {
@@ -143,7 +114,7 @@ $(function () {
             });
         }
     });
-    $("#edit").click(function () {
+    $("#check").click(function () {
         //获取选择个数
         var checked = $("#exampleTableEvents").bootstrapTable('getAllSelections');
         if(checked.length != 1){
@@ -166,118 +137,16 @@ $(function () {
                 $("#desc1").val(n.desc);
                 $("#awards1").val(n.awards);
                 $("#createUser1").val(n.createUser);
-                $("#status1").val(n.status);
             });
             //弹出页面
             $("#myModal6").modal('show');
         }
     });
-
-    //点击删除按钮事件
-    $("#delProject").click(function () {
-        //先判断有没有选择一条数据
-        var ta = $("#exampleTableEvents").bootstrapTable('getAllSelections');
-        if (ta.length > 1) {
-            var text = "";
-            var checkId = "";
-            //获取所有的url
-            $.each(ta, function (i, row) {
-                //赋值
-                text += row.name + "\n";
-                checkId += row.id + ",";
-            });
-            checkId = checkId.substring(0, checkId.lastIndexOf(","));
-            $("#batchName").val(text);
-            $("#batchId").val(checkId);
-
-            $("#batchDelModal").modal("show");
-        }
-        if (ta.length === 0) {
-            swal({
-                title: "警告",
-                text: "请选择一条数据",
-                type: "warning",
-                confirmButtonColor: "#DD6B55",
-                closeOnConfirm: true
-            }, function () {
-            });
-        }
-        if (ta.length == 1) {
-            $.each(ta, function (i, row) {
-                //赋值
-                $("#delName").val(row.name);
-                $("#delId").val(row.id);
-            });
-            $("#delModal").modal("show");
-        }
-    });
-    // 提交批量删除表单
-    $("#batchDelForm").ajaxForm(function (data) {
-        var msg = data.msg;
-        if (data.result) {
-            swal({
-                title: "成功",
-                text: msg,
-                type: "warning",
-                confirmButtonColor: "#DD6B55",
-                closeOnConfirm: true
-            }, function () {
-            });
-            //关闭显示窗口
-            $("#batchDelModal").modal("hide");
-            //重新加载表格数据
-            $('#exampleTableEvents').bootstrapTable("refresh", {
-                url: "/project/pro/initPaging"
-            });
-        }
-        if (!data.result) {
-            swal({
-                title: "警告",
-                text: msg,
-                type: "warning",
-                confirmButtonColor: "#DD6B55",
-                closeOnConfirm: true
-            }, function () {
-            });
-        }
-    });
-
-    // 提交删除表单
-    $("#delForm").ajaxForm(function (data) {
-        var msg = data.msg;
-        if (data.result) {
-            swal({
-                title: "成功",
-                text: msg,
-                type: "warning",
-                confirmButtonColor: "#DD6B55",
-                closeOnConfirm: true
-            }, function () {
-            });
-            //关闭显示窗口
-            $("#delModal").modal("hide");
-            //重新加载表格数据
-            $('#exampleTableEvents').bootstrapTable("refresh", {
-                url: "/project/pro/initPaging"
-            });
-        }
-        if (!data.result) {
-            swal({
-                title: "警告",
-                text: msg,
-                type: "warning",
-                confirmButtonColor: "#DD6B55",
-                closeOnConfirm: true
-            }, function () {
-            });
-        }
-    });
-
     function initTable(projectName) {
         $("#exampleTableEvents").bootstrapTable("destroy");
         $("#exampleTableEvents").bootstrapTable({
             method: "get",  //使用get请求到服务器获取数据
-            url: "/project/pro/initPaging",
+            url: "/projectManager/initPaging",
             editable: true,//开启编辑模式
             //search: true,//搜索框
             pagination: true,

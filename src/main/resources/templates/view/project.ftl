@@ -32,7 +32,12 @@
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal5">项目申报</button>
                                 <button type="button" id ="edit" class="btn btn-warning" data-toggle="modal" >项目修改</button>
-                                <label style="height: 50px;margin-left: 10px;">名称：<input id="searchUserName" type="text" style="height: 34px;" placeholder="输入项目名称"></label>
+                                <button type="button" id="delProject"  class="btn btn-danger" data-toggle="modal">删除项目</button>
+                                <button type="button" id="myProject" class="btn btn-primary" data-toggle="modal">我创建的</button>
+                                <#if Session.user?exists>
+                                <input type="hidden" id="nowUserName" class="nowUserName" value="${Session.user.realName}">
+                                </#if>
+                                <label style="height: 50px;margin-left: 10px;">名称：<input id="searchProjectName" type="text" style="height: 34px;" placeholder="输入项目名称"></label>
                                 <button id="search" style="left: 350px;overflow-x:visible;overflow-y:visible;" type="button" class="btn btn-primary">查询</button>
                                 <button id="reset" type="button" style="left:370px;overflow-x:visible;overflow-y:visible;" class="btn btn-default">重置</button>
                             </div>
@@ -54,6 +59,7 @@
                                 </thead>
                             </table>
                         </div>
+                        <label style="height: 50px;left:390px;overflow-x:visible;overflow-y:visible">审核情况描述：0:未审核***1:审核通过***2:审核不通过</label>
                     </div>
                     <!-- End Example Events -->
                 </div>
@@ -103,7 +109,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">具体描述：</label>
                             <div class="col-sm-8">
-                                <input id="desc" type="text" minlength="1"  class="form-control" name="desc">
+                                <textarea id="desc" type="text" rows="5" class="form-control" name="desc"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -163,7 +169,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目描述</label>
                             <div class="col-sm-8">
-                                <input id="desc1" type="text" maxlength="100" class="form-control" name="desc">
+                                <textarea id="desc1" type="text" rows="5" class="form-control" name="desc"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -198,18 +204,18 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">确定删除这个用户 ?</h4>
+                    <h4 class="modal-title">确定删除这个项目 ?</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal m-t" id="delForm"
-                          action="/system/user/delUser" method="post">
+                          action="/project/pro/del" method="post">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">用户姓名：</label>
+                            <label class="col-sm-2 control-label">项目名：</label>
                             <div class="input-group">
-                                <input id="delRealName" type="url" class="form-control" name="realName"
+                                <input id="delName" type="url" class="form-control" name="name"
                                        required="" readonly="readonly"
                                        aria-required="true" style="width: 650px;">
-                                <input id="delName" type="hidden" class="form-control" name="name"
+                                <input id="delId" type="hidden" class="form-control" name="id"
                                        required="" readonly="readonly"
                                        aria-required="true">
                             </div>
@@ -229,15 +235,15 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">确定要删除这些用户吗 ?</h4>
+                    <h4 class="modal-title">确定要删除这些项目吗 ?</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal m-t" id="batchDelForm"
-                          action="/system/user/batchDelUser" method="post">
+                          action="/project/pro/batchDel" method="post">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">用户姓名：</label>
+                            <label class="col-sm-2 control-label">项目名：</label>
                             <div class="input-group">
-                                <textarea id="batchRealName" type="text" class="form-control" name="realName" rows="10"
+                                <textarea id="batchName" type="text" class="form-control" name="name" rows="10"
                                           required="" readonly="readonly" style="width: 650px;"
                                 ></textarea>
                                 <input id="batchId" type="hidden" class="form-control" name="ids"

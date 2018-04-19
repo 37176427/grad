@@ -13,10 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 描述 ：
@@ -34,10 +31,10 @@ public class ProjectService {
     /**
      * 带查询的分页与不带查询的分页
      */
-    public Map<String,Object> limitQuery(Integer pageNumber, Integer pageSize, Integer number) {
+    public Map<String,Object> limitQuery(Integer pageNumber, Integer pageSize, String projectName) {
         Map<String, Object> map;
-        if (number != null && 0!=number) {
-            map = this.initQueryPaging(pageNumber, pageSize,number);
+        if (projectName != null && !"".equals(projectName)) {
+            map = this.initQueryPaging(pageNumber, pageSize,projectName);
         } else {
             map = this.initPaging(pageNumber, pageSize);
         }
@@ -62,13 +59,13 @@ public class ProjectService {
     /**
      * 带查询的分页
      */
-    private Map<String,Object> initQueryPaging(Integer pageNumber, Integer pageSize, Integer number) {
+    private Map<String,Object> initQueryPaging(Integer pageNumber, Integer pageSize, String projectName) {
         Map<String, Object> map = new HashMap<>(2);
         pageNumber = (pageNumber - 1) * pageSize;
         //查询总记录数
-        Integer total = projectDao.findtotalByNumber(number);
+        Integer total = projectDao.findtotalByName(projectName);
         //根据参数查询数据
-        List<Project> rows = projectDao.initQueryPaging(pageNumber,pageSize,number);
+        List<Project> rows = projectDao.initQueryPaging(pageNumber,pageSize,projectName);
         map.put("rows", rows);
         map.put("total", total);
         return map;
@@ -78,11 +75,15 @@ public class ProjectService {
      * 校验处理后添加新项目
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
-    public QueryResultObject addProjectService(Project project, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User nowUser = (User)session.getAttribute("user");
-        String realName = nowUser.getRealName();
+    public QueryResultObject addProjectService(Project project, HttpSession session) {
         QueryResultObject msg = new QueryResultObject();
+        User nowUser = (User)session.getAttribute("user");
+        if(nowUser == null){
+            msg.setMsg("登录过期！请重新登录！");
+            msg.setResult(false);
+            return msg;
+        }
+        String realName = nowUser.getRealName();
         if(project.getName() == null || "".equals(project.getName())){
             msg.setResult(false);
             msg.setMsg("传入值为空");
@@ -92,7 +93,7 @@ public class ProjectService {
         Project projectResult = this.findByNumber(project.getNumber());
         if (projectResult != null ){
             msg.setResult(false);
-            msg.setMsg("数据已存在!");
+            msg.setMsg("此项目编号已存在!");
             return msg;
         }
         //校验数据
@@ -111,7 +112,7 @@ public class ProjectService {
         }catch (Exception e){
             logger.error("插入Project表出错!" + "projectname= " + project.getName() + e.toString());
             msg.setResult(false);
-            msg.setMsg("插入Project表出错!" + "projectname= " + project.getName());
+            msg.setMsg("添加项目出错!" + "projectname= " + project.getName());
             return msg;
         }
         msg.setResult(true);
@@ -169,7 +170,11 @@ public class ProjectService {
     public QueryResultObject updateProjectService(Project project, HttpSession session) {
         QueryResultObject msg = new QueryResultObject();
         User nowUser = (User) session.getAttribute("user");
-        String realName = nowUser.getRealName();
+        if(nowUser == null){
+            msg.setMsg("登录过期！请重新登录！");
+            msg.setResult(false);
+            return msg;
+        }
         //做更新操作Name不能为空
         if(project.getName() == null ){
             msg.setResult(false);
@@ -196,7 +201,7 @@ public class ProjectService {
             msg.setMsg("更新操作项目成员为空!");
             return msg;
         }
-        if(!realName.equals(project.getCreateUser())){
+        if(!nowUser.getRealName().equals(project.getCreateUser())){
             msg.setResult(false);
             msg.setMsg("您不是该项目的拥有者，无权更改！");
             return msg;
@@ -243,7 +248,7 @@ public class ProjectService {
         }catch (Exception e){
             logger.error("更新project表出错! 项目编号：" +project.getNumber() + e.toString());
             msg.setResult(false);
-            msg.setMsg("更新project表出错! 项目编号：" +project.getNumber());
+            msg.setMsg("更新项目出错! 项目编号：" +project.getNumber());
             return msg;
         }
     }
@@ -255,4 +260,65 @@ public class ProjectService {
     public void updateProject(Project projectResult) {
         projectDao.updateProject(projectResult);
     }
+
+    public Map<String,Object> limitQueryByName(Integer pageNumber, Integer pageSize, String realName) {
+        Map<String, Object> map;
+        if (realName != null && !"".equals(realName)) {
+            map = this.initQueryPagingByName(pageNumber, pageSize,realName);
+        } else {
+            map = this.initPaging(pageNumber, pageSize);
+        }
+        return map;
+    }
+
+    /**
+     * 根据用户名查询
+     */
+    public Map<String,Object> initQueryPagingByName(Integer pageNumber, Integer pageSize, String realName) {
+        Map<String, Object> map = new HashMap<>(2);
+        pageNumber = (pageNumber - 1) * pageSize;
+        //查询总记录数
+        Integer total = projectDao.findtotalByUserName(realName);
+        //根据参数查询数据
+        List<Project> rows = projectDao.initQueryPagingByUserName(pageNumber,pageSize,realName);
+        map.put("rows", rows);
+        map.put("total", total);
+        return map;
+    }
+
+    /**
+     *  删除单个项目
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public Integer delById(Integer id) {
+        return projectDao.delById(id);
+    }
+
+    public Project findById(Integer id) {
+        return projectDao.findById(id);
+    }
+
+    /**
+     *  批量删除
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public int batchDel(String[] array) {
+        return projectDao.batchDel(array);
+    }
+
+    public List<Project> findByIds(String[] array) {
+        List<Project> list = new ArrayList<>();
+        try {
+            for (String id : array) {
+                System.out.println(id);
+                list.add(this.findById(Integer.valueOf(id)));
+            }
+        }catch (Exception e){
+            logger.error("查询project表出错！ ids=" +array);
+            list.clear();
+            return list;
+        }
+        return list;
+    }
 }
+

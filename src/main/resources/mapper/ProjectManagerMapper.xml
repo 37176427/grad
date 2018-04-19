@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.grad.dao.ProjectManagerDao">
+    <!--带参数的查询-->
+    <select id="initQueryPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project WHERE name=#{name}
+        AND `status` != 1
+        ORDER BY id DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--进行分页-->
+    <select id="initPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project WHERE `status` !=1
+        ORDER BY id DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--查询总记录数-->
+    <select id="total" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM project
+        WHERE `status` != 1
+    </select>
+
+    <!--根据名字查总数-->
+    <select id="findtotalByName" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM project
+        WHERE name=#{name}
+        AND `status` !=1
+    </select>
+
+    <!--根据number查询-->
+    <select id="findByNumber" parameterType="java.lang.Integer" resultType="com.grad.eneity.Project">
+        select *
+        from project
+        WHERE number = #{number}
+    </select>
+
+    <!--更新项目-->
+    <update id="updateProject" parameterType="com.grad.eneity.Project">
+        UPDATE project SET
+        `name`=#{name},
+        `manager`=#{manager},
+        `member`=#{member},
+        `nature`=#{nature},
+        `desc`=#{desc},
+        `awards`=#{awards},
+        `createTime`=#{createTime},
+        `status`=#{status},
+        `number`=#{number}
+        where id=#{id}
+    </update>
+    <!--根据status查询总数-->
+    <select id="findtotalByStatus" resultType="java.lang.Integer">
+        SELECT count(*) FROM project
+        where `status` =#{status}
+    </select>
+
+    <select id="initQueryPagingByStatus" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        WHERE `status` = #{status}
+        LIMIT #{start}, #{pageSize}
+    </select>
+</mapper>

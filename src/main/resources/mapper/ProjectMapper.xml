@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.grad.dao.ProjectDao">
 
-
-
     <!--带参数查询总数-->
     <select id="findtotalByNumber" resultType="java.lang.Integer">
         SELECT COUNT(*)
@@ -11,10 +9,16 @@
         WHERE number=#{number}
     </select>
 
+    <!--根据名字查总数-->
+    <select id="findtotalByName" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM project
+        WHERE name=#{name}
+    </select>
     <!--带参数的查询-->
     <select id="initQueryPaging" resultType="com.grad.eneity.Project">
         SELECT *
-        FROM project WHERE number=#{number}
+        FROM project WHERE name=#{name}
         ORDER BY id DESC
         LIMIT #{start}, #{pageSize}
     </select>
@@ -80,4 +84,34 @@
             `number`=#{number}
         where id=#{id}
     </update>
+    <!--根据创建者查总数-->
+    <select id="findtotalByUserName" resultType="java.lang.Integer">
+        select count(*)
+        from project
+        where createUser=#{createUser}
+    </select>
+    <!--根据创建者查询-->
+    <select id="initQueryPagingByUserName" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        WHERE createUser=#{createUser}
+        LIMIT #{start}, #{pageSize}
+    </select>
+    <!--单个删除-->
+    <delete id="delById">
+        DELETE FROM project
+        WHERE id=#{id}
+    </delete>
+    <!--根据ID查找-->
+    <select id="findById" resultType="com.grad.eneity.Project">
+        SELECT * FROM project where id=#{id}
+    </select>
+    <!--批量删除-->
+    <delete id="batchDel">
+        DELETE  FROM project
+        WHERE id IN
+        <foreach collection="array" item = "id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

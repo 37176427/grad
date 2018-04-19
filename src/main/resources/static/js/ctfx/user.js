@@ -36,7 +36,7 @@ $(function () {
         if (userName !== null && userName !== "") {
             initTableForTool(null);
         }
-        $("#userName").val("");
+        $("#searchUserName").val("");
     });
     //搜索按钮
     $("#search").click(function () {

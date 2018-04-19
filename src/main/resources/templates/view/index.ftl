@@ -31,13 +31,13 @@
                     </#if>
                 </li>
                 <li>
-                    <a class="J_menuPage" href="/show">
+                    <a class="J_menuPage" href="/toShouye">
                         <i class="fa fa-cutlery"></i>
                         <span class="nav-label">首页</span>
                     </a>
                 </li>
                 <li>
-                    <a class="J_menuPage" href="/project">
+                    <a class="J_menuPage" href="/toProject">
                         <i class="fa fa-archive"></i>
                         <span class="nav-label">项目管理</span>
                     </a>
@@ -50,7 +50,7 @@
                 </li>
                 <#if Session.user?exists && Session.user.permission == 1>
                     <li>
-                        <a class="J_menuPage" href="/projectManager">
+                        <a class="J_menuPage" href="/toProjectManager">
                             <i class="fa fa-cube"></i>
                             <span class="nav-label">项目审批</span>
                         </a>
@@ -58,7 +58,7 @@
                 </#if>
                 <#if Session.user?exists && Session.user.permission == 2>
                     <li>
-                        <a class="J_menuPage" href="/userInfo">
+                        <a class="J_menuPage" href="/toUserInfo">
                             <i class="fa fa-truck"></i>
                             <span class="nav-label">用户管理</span>
                         </a>
@@ -78,7 +78,7 @@
     <!--右侧部分开始-->
     <div id="page-wrapper" class="gray-bg">
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframeContent" width="100%" height="100%" src="/show" frameborder="0" ></iframe>
+            <iframe class="J_iframeContent" width="100%" height="100%" src="/toShouye" frameborder="0" ></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2000-2018 <a href="https://github.com/37176427/grad/" target="_blank">在github上寻找</a>

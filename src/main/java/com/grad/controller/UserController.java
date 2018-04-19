@@ -90,12 +90,12 @@ public class UserController {
                     object.setMsg("删除失败，请稍后尝试");
                 }
             } else {
-                object.setMsg("删除失败,请检查要删除的url的正确性");
+                object.setMsg("删除失败,请检查要删除的用户的正确性");
                 object.setResult(false);
             }
         } else {
             object.setResult(false);
-            object.setMsg("删除失败，请确定工具名称的正确性");
+            object.setMsg("删除失败，请确定用户名称的正确性");
         }
         return object;
     }
