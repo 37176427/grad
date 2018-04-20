@@ -30,8 +30,8 @@
                         <h4 class="example-title">待审核的项目</h4>
                         <div class="example">
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                                <button type="button" id ="check" class="btn btn-success" data-toggle="modal" >项目审核</button>
-                                <button type="button" id="hasChecked" class="btn btn-warning" data-toggle="modal">已审核的</button>
+                                <button type="button" id ="check" class="btn btn-success" data-toggle="modal" >审批该项目</button>
+                                <button type="button" id="hasChecked" class="btn btn-warning" data-toggle="modal">已通过审批的</button>
                                 <label style="height: 50px;margin-left: 10px;">名称：<input id="searchProjectName" type="text" style="height: 34px;" placeholder="输入项目名称"></label>
                                 <button id="search" style="left: 350px;overflow-x:visible;overflow-y:visible;" type="button" class="btn btn-primary">查询</button>
                                 <button id="reset" type="button" style="left:370px;overflow-x:visible;overflow-y:visible;" class="btn btn-default">重置</button>
@@ -49,7 +49,9 @@
                                     <th data-field="awards">获奖情况</th>
                                     <th data-field="createTime">申请时间</th>
                                     <th data-field="status">审核情况</th>
+                                    <th data-field="checkUser">审核人</th>
                                     <th data-field="createUser">创建人</th>
+                                    <th data-field="savePath">相关资料</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -66,7 +68,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">审核项目</h4>
+                    <h4 class="modal-title">审批项目</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal m-t" id="commentForm" name="commentForm" action="/projectManager/check" method="post">

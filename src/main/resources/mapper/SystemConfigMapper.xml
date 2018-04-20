@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.grad.dao.SystemConfigDao">
+
+    <select id="findConfigByName" parameterType="string" resultType="com.grad.eneity.SystemConfig">
+        SELECT * FROM systemConfig t WHERE t.name = #{name}
+    </select>
+
+    <select id="findValueByName" parameterType="string" resultType="string">
+        SELECT t.value FROM systemConfig t WHERE t.name = #{name}
+    </select>
+
+    <update id="updateConfigByName" parameterType="com.grad.eneity.SystemConfig">
+        UPDATE systemConfig t SET t.value = #{value} WHERE t.name = #{name}
+    </update>
+
+</mapper>

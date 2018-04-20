@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grad.dao.MaterialDao">
+
+
+    <!--模糊查询，只用于根据名称模糊查询-->
+    <select id="fuzzyQueryPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        WHERE name LIKE CONCAT('%',#{name}, '%')
+        ORDER BY createTime DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--根据名称模糊查询总数-->
+    <select id="totalByName" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM project
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+    </select>
+
+    <!--进行分页-->
+    <select id="initPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        ORDER BY createTime DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--查询总记录数-->
+    <select id="total" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM project
+    </select>
+
+    <!--根据名称模糊查询-->
+    <select id="findByNameLike" resultType="com.grad.eneity.Project">
+        SELECT  * FROM  project
+        WHERE
+        name LIKE CONCAT(#{name},'%')
+        <if test="limit > 0">
+            LIMIT #{limit}
+        </if>
+    </select>
+
+    <!--根据名称查询-->
+    <select id="findByName" resultType="com.grad.eneity.Project">
+        SELECT * FROM project
+        where name = #{name}
+    </select>
+
+    <!--根据ID查询-->
+    <select id="findById" resultType="com.grad.eneity.Project">
+        SELECT * FROM project
+        where id = #{id}
+    </select>
+
+    <!--更新项目-->
+    <update id="updateProject" parameterType="com.grad.eneity.Project">
+        UPDATE project SET
+            savePath = #{savePath}
+        WHERE id=#{id}
+    </update>
+</mapper>

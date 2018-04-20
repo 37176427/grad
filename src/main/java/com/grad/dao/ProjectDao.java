@@ -39,4 +39,6 @@ public interface ProjectDao {
     Project findById(Integer id);
 
     int batchDel(String[] array);
+
+    List<Project> fuzzyQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("name") String name);
 }

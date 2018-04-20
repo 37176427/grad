@@ -23,35 +23,41 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <#if Session.user?exists>
-                        欢迎您：${Session.user.realName}
-                        <a class="J_menuPage" href="/logout">
-                            <i class="fa fa-cutlery"></i>
+                        <span style="color: #5f9ea0;font-weight: bold ">欢迎您：${Session.user.realName}</span>
+                        <a class="J_menuPage" id="logout" href="javascript:void(0)">
+                            <i class="fa fa-exclamation"></i>
                             <span class="nav-label">注销</span>
                         </a>
                     </#if>
                 </li>
                 <li>
                     <a class="J_menuPage" href="/toShouye">
-                        <i class="fa fa-cutlery"></i>
+                        <i class="fa fa-home"></i>
                         <span class="nav-label">首页</span>
                     </a>
                 </li>
                 <li>
                     <a class="J_menuPage" href="/toProject">
-                        <i class="fa fa-archive"></i>
+                        <i class="fa fa-file"></i>
                         <span class="nav-label">项目管理</span>
                     </a>
                 </li>
                 <li>
-                    <a class="J_menuPage" href="/versionInfo">
-                        <i class="fa fa-archive"></i>
-                        <span class="nav-label">项目展示</span>
+                    <a class="J_menuPage" href="/toMaterial">
+                        <i class="fa fa-folder"></i>
+                        <span class="nav-label">项目材料</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="J_menuPage" href="/statAnalyze">
+                        <i class="fa fa-pie-chart"></i>
+                        <span class="nav-label">统计分析</span>
                     </a>
                 </li>
                 <#if Session.user?exists && Session.user.permission == 1>
                     <li>
                         <a class="J_menuPage" href="/toProjectManager">
-                            <i class="fa fa-cube"></i>
+                            <i class="fa fa-list"></i>
                             <span class="nav-label">项目审批</span>
                         </a>
                     </li>
@@ -59,18 +65,11 @@
                 <#if Session.user?exists && Session.user.permission == 2>
                     <li>
                         <a class="J_menuPage" href="/toUserInfo">
-                            <i class="fa fa-truck"></i>
+                            <i class="fa fa-group"></i>
                             <span class="nav-label">用户管理</span>
                         </a>
                     </li>
                 </#if>
-
-                <li>
-                    <a class="J_menuPage" href="/statAnalyze">
-                        <i class="fa fa-pie-chart"></i>
-                        <span class="nav-label">统计分析</span>
-                    </a>
-                </li>
             </ul>
         </div>
     </nav>
@@ -81,7 +80,7 @@
             <iframe class="J_iframeContent" width="100%" height="100%" src="/toShouye" frameborder="0" ></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 2000-2018 <a href="https://github.com/37176427/grad/" target="_blank">在github上寻找</a>
+            <div class="pull-right">&copy; 2018 <a href="https://github.com/37176427/grad/" target="_blank">在github上寻找</a>
             </div>
         </div>
     </div>

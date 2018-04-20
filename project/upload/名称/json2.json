@@ -1,0 +1,101 @@
+[
+    {
+        "type": "start",
+        "desc": "流程开始",
+        "timeout": "60",
+        "isjs": "true",
+        "iscss": "true",
+        "isimg": "true"
+    },
+    {
+        "type": "fixedvalue",
+        "desc": "固定值设置",
+        "datas": [
+             {
+                "value": "https://play.google.com/store/apps/details?id=com.cisco.im",
+                "column": "sourceUrl"
+            },
+            {
+                "value": "CiscoJabber",
+                "column": "sampleName"
+            },
+            {
+                "value": "CiscoSystems",
+                "column": "developer"
+            },
+            {
+                "value": "",
+                "column": "description"
+            },
+            {
+                "value": "chrome",
+                "column": "platform"
+            },
+            {
+                "value": "",
+                "column": "sizeOnPage"
+            }
+        ]
+    },
+    {
+        "type": "open",
+        "desc": "打开网页",
+        "wait": 3,
+        "url": "https://play.google.com/store/apps/details?id=com.cisco.im"
+    },
+    {
+        "type": "get",
+        "desc": "提取数据",
+        "datas": [
+            {
+                "selector": "div:nth-child(3) > div.content",
+                "column": "version",
+                "from": "text",
+                "regx": "",
+                "regvalue": "",
+                "defaultValue": "",
+                "iframeselector": "",
+                "islistitem": "false"
+            }
+        ],
+        "iframeselector": ""
+    },
+	{
+        "type": "get",
+        "desc": "提取数据",
+        "datas": [
+            {
+                "selector": "div.cover-container > img",
+                "column": "iconPath",
+                "from": "src",
+                "regx": "",
+                "regvalue": "",
+                "defaultValue": "",
+                "iframeselector": "",
+                "islistitem": "false"
+            }
+        ],
+        "iframeselector": ""
+    },
+	{
+        "type": "get",
+        "desc": "提取数据",
+        "datas": [
+            {
+                "selector": "div:nth-child(1) > div.content",
+                "column": "postTime",
+                "from": "text",
+                "regx": "",
+                "regvalue": "",
+                "defaultValue": "",
+                "iframeselector": "",
+                "islistitem": "false"
+            }
+        ],
+        "iframeselector": ""
+    },
+    {
+        "type": "end",
+        "desc": "流程结束"
+    }
+]

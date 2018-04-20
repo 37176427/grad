@@ -29,7 +29,7 @@
     <select id="findtotalByName" resultType="java.lang.Integer">
         SELECT count(*)
         FROM project
-        WHERE name=#{name}
+        WHERE name LIKE CONCAT('%',#{name}, '%')
         AND `status` !=1
     </select>
 
@@ -51,7 +51,9 @@
         `awards`=#{awards},
         `createTime`=#{createTime},
         `status`=#{status},
-        `number`=#{number}
+        `number`=#{number},
+        `checkUser`=#{checkUser},
+        `savePath` =#{savePath}
         where id=#{id}
     </update>
     <!--根据status查询总数-->
@@ -64,6 +66,16 @@
         SELECT *
         FROM project
         WHERE `status` = #{status}
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!--模糊查询，只用于根据名称模糊查询-->
+    <select id="fuzzyQueryPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        WHERE name LIKE CONCAT('%',#{name}, '%')
+        AND `status`!= 1
+        ORDER BY createTime DESC
         LIMIT #{start}, #{pageSize}
     </select>
 </mapper>

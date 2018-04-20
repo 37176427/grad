@@ -1,5 +1,6 @@
 package com.grad.service;
 
+import com.grad.common.utils.Base64Util;
 import com.grad.common.eneity.QueryResultObject;
 import com.grad.dao.ProjectDao;
 import com.grad.eneity.Project;
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -34,10 +33,25 @@ public class ProjectService {
     public Map<String,Object> limitQuery(Integer pageNumber, Integer pageSize, String projectName) {
         Map<String, Object> map;
         if (projectName != null && !"".equals(projectName)) {
-            map = this.initQueryPaging(pageNumber, pageSize,projectName);
+            map = this.fuzzyQueryPaging(pageNumber, pageSize,projectName);
         } else {
             map = this.initPaging(pageNumber, pageSize);
         }
+        return map;
+    }
+
+    /**
+     *  带名字的模糊查询
+     */
+    private Map<String,Object> fuzzyQueryPaging(Integer pageNumber, Integer pageSize, String projectName) {
+        Map<String, Object> map = new HashMap<>(2);
+        pageNumber = (pageNumber - 1) * pageSize;
+        List<Project> rows = projectDao.fuzzyQueryPaging(pageNumber, pageSize, projectName);
+        init(rows);
+        //查询总记录数
+        Integer total = projectDao.findtotalByName(projectName);
+        map.put("rows", rows);
+        map.put("total", total);
         return map;
     }
 
@@ -50,6 +64,7 @@ public class ProjectService {
         List<Project> rows = projectDao.initPaging(pageNumber, pageSize);
         //查询总记录数
         Integer total = projectDao.total();
+        init(rows);
         //告知前端分页的数量
         map.put("rows", rows);
         map.put("total", total);
@@ -66,6 +81,7 @@ public class ProjectService {
         Integer total = projectDao.findtotalByName(projectName);
         //根据参数查询数据
         List<Project> rows = projectDao.initQueryPaging(pageNumber,pageSize,projectName);
+        init(rows);
         map.put("rows", rows);
         map.put("total", total);
         return map;
@@ -319,6 +335,36 @@ public class ProjectService {
             return list;
         }
         return list;
+    }
+
+    /**
+     * 初始化下载地址与审核人
+     * @param rows 下载结果集
+     */
+    public void init(List<Project> rows) {
+        for (Project project : rows) {
+            String str = project.getSavePath();
+            String href;
+            if (str == null || "".equals(str)) {
+                href = "暂无材料";
+            } else {
+                String savePath = Base64Util.encodeBase64(str);
+                href = "<a onclick=\"return js_download(this);\"" + " name=\"" + savePath + "\"" + ">下载</a >";
+            }
+            project.setSavePath(href);
+            String checkUser = project.getCheckUser();
+            String user;
+            if (checkUser == null || "".equals(checkUser)) {
+                user = "暂未审核";
+            } else {
+                if (0 == project.getStatus()) {
+                    user = "暂未审核";
+                } else {
+                    user = "<b>" + checkUser + "</b>";
+                }
+            }
+            project.setCheckUser(user);
+        }
     }
 }
 

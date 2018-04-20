@@ -1,5 +1,6 @@
 package com.grad.service;
 
+import com.grad.common.utils.Base64Util;
 import com.grad.common.eneity.QueryResultObject;
 import com.grad.dao.ProjectManagerDao;
 import com.grad.eneity.Project;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +35,25 @@ public class ProjectManagerService {
     public Map<String,Object> limitQuery(Integer pageNumber, Integer pageSize, String projectName) {
         Map<String, Object> map;
         if (projectName != null && !"".equals(projectName)) {
-            map = this.initQueryPaging(pageNumber, pageSize,projectName);
+            map = this.fuzzyQueryPaging(pageNumber, pageSize,projectName);
         } else {
             map = this.initPaging(pageNumber, pageSize);
         }
+        return map;
+    }
+
+    /**
+     *  带名字的模糊查询
+     */
+    private Map<String,Object> fuzzyQueryPaging(Integer pageNumber, Integer pageSize, String projectName) {
+        Map<String, Object> map = new HashMap<>(2);
+        pageNumber = (pageNumber - 1) * pageSize;
+        List<Project> rows = projectManagerDao.fuzzyQueryPaging(pageNumber, pageSize, projectName);
+        init(rows);
+        //查询总记录数
+        Integer total = projectManagerDao.findtotalByName(projectName);
+        map.put("rows", rows);
+        map.put("total", total);
         return map;
     }
 
@@ -51,7 +66,7 @@ public class ProjectManagerService {
         List<Project> rows = projectManagerDao.initPaging(pageNumber, pageSize);
         //查询总记录数
         Integer total = projectManagerDao.total();
-        //告知前端分页的数量
+        init(rows);
         map.put("rows", rows);
         map.put("total", total);
         return map;
@@ -137,6 +152,9 @@ public class ProjectManagerService {
             projectResult.setcreateTime(project.getcreateTime());
             projectResult.setStatus(project.getStatus());
             projectResult.setCreateUser(project.getCreateUser());
+            //审核人为当前用户
+            projectResult.setCheckUser(nowUser.getRealName());
+            projectResult.setSavePath(project.getSavePath());
         }catch (Exception e){
             logger.error("项目编号创建后不可更改! 项目编号： " +project.getNumber() + e.toString());
             msg.setResult(false);
@@ -204,8 +222,40 @@ public class ProjectManagerService {
         Integer total = projectManagerDao.findtotalByStatus(status);
         //根据参数查询数据
         List<Project> rows = projectManagerDao.initQueryPagingByStatus(pageNumber,pageSize,status);
+        init(rows);
         map.put("rows", rows);
         map.put("total", total);
         return map;
+    }
+
+
+    /**
+     * 初始化下载地址与审核人
+     * @param rows 下载结果集
+     */
+    public void init(List<Project> rows) {
+        for (Project project : rows) {
+            String str = project.getSavePath();
+            String href;
+            if (str == null || "".equals(str)) {
+                href = "暂无材料";
+            } else {
+                String savePath = Base64Util.encodeBase64(str);
+                href = "<a onclick=\"return js_download(this);\"" + " name=\"" + savePath + "\"" + ">下载</a >";
+            }
+            project.setSavePath(href);
+            String checkUser = project.getCheckUser();
+            String user;
+            if (checkUser == null || "".equals(checkUser)) {
+                user = "暂未审核";
+            } else {
+                if (0 == project.getStatus()) {
+                    user = "暂未审核";
+                } else {
+                    user = "<b>" + checkUser + "</b>";
+                }
+            }
+            project.setCheckUser(user);
+        }
     }
 }

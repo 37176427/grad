@@ -54,6 +54,7 @@
                                     <th data-field="awards">获奖情况</th>
                                     <th data-field="createTime">申请时间</th>
                                     <th data-field="status">审核情况</th>
+                                    <th data-field="checkUser">审核人</th>
                                     <th data-field="createUser">创建人</th>
                                 </tr>
                                 </thead>

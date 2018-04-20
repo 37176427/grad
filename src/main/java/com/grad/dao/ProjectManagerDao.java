@@ -30,4 +30,6 @@ public interface ProjectManagerDao {
     Integer findtotalByStatus(Integer status);
 
     List<Project> initQueryPagingByStatus(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("status") Integer status);
+
+    List<Project> fuzzyQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("name") String name);
 }

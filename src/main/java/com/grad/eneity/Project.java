@@ -24,6 +24,8 @@ public class Project implements Serializable {
     private Date createTime;
     private Integer status;
     private String createUser;
+    private String checkUser;
+    private String savePath;
 
     public Integer getId() {
         return id;
@@ -105,13 +107,28 @@ public class Project implements Serializable {
         this.status = status;
     }
 
-
     public String getCreateUser() {
         return createUser;
     }
 
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
+    }
+
+    public String getCheckUser() {
+        return checkUser;
+    }
+
+    public void setCheckUser(String checkUser) {
+        this.checkUser = checkUser;
+    }
+
+    public String getSavePath() {
+        return savePath;
+    }
+
+    public void setSavePath(String savePath) {
+        this.savePath = savePath == null ? null : savePath.trim();
     }
 
     @Override

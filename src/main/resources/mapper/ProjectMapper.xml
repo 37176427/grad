@@ -114,4 +114,13 @@
             #{id}
         </foreach>
     </delete>
+
+    <!--模糊查询，只用于根据名称模糊查询-->
+    <select id="fuzzyQueryPaging" resultType="com.grad.eneity.Project">
+        SELECT *
+        FROM project
+        WHERE name LIKE CONCAT('%',#{name},'%')
+        ORDER BY createTime DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
 </mapper>

@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ToController {
     //登录页
-    @RequestMapping("tologin")
+    @RequestMapping("/")
+    public String defaultIndex(){return "/view/login";}
+
+   /* @RequestMapping("tologin")
     public String login(){
         return "view/login";
-    }
+    }*/
     @RequestMapping("toindex")
     public String index(){
         return "view/index";
@@ -37,5 +40,8 @@ public class ToController {
     public String toProjectManager(){
         return "view/projectManager";
     }
+    //论文管理页
+    @RequestMapping("toMaterial")
+    public String toPaper(){ return "view/material";}
 
 }

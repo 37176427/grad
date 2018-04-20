@@ -2,6 +2,8 @@ package com.grad.controller;
 
 import com.grad.eneity.User;
 import com.grad.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import java.io.PrintWriter;
 @Controller
 public class LoginController {
 
+    private Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     private UserService us;
 
@@ -43,10 +46,12 @@ public class LoginController {
     @RequestMapping("logout")
     public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
         session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        logger.info("用户已注销："+user.toString());
         session.invalidate();
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
-        String loginPage = "/tologin";
+        String loginPage = "/";
         StringBuilder builder = new StringBuilder();
         builder.append("<script type=\"text/javascript\">");
         builder.append("alert('注销成功！');");

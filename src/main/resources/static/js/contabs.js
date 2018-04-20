@@ -313,4 +313,9 @@ $(function () {
         $('.page-tabs-content').css("margin-left", "0");
     });
 
+    $("#logout").on('click',function () {
+        if(confirm("确定要注销吗？")){
+          window.location.href="/logout";
+        }
+    });
 });

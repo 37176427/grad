@@ -16,6 +16,6 @@
 </head>
 <body>
 <div>
-<img src="/static/images/bg.jpg" width="100%" height="100%">
+<img src="/static/images/bg10.jpg" width="100%" height="100%">
 </div>
 </body>

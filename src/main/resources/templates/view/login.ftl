@@ -42,10 +42,10 @@
 
         <form class="m-t" role="form" action="/login" method="post">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名" required="" name="name">
+                <input type="text" class="form-control" placeholder="用户名" required="" name="name" id="username">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="密码" required="" name="password">
+                <input type="password" class="form-control" placeholder="密码" required="" name="password" id="password">
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
             <button type="reset" class="btn btn-warning block full-width m-b">重 置</button>
@@ -53,4 +53,9 @@
     </div>
 </div>
 </body>
+<script>
+    $(document).ready(function () {
+        $("#username").focus();
+    });
+</script>
 </html>
