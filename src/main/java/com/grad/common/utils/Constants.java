@@ -18,10 +18,6 @@ public class Constants {
 
     public static final String FILE_ROOT_DIR = "fileRoot";//文件存放根目录
 
-    public static final String HUMMER_DATA_DIR = "hummerDataDir";//Hummer采集数据存放目录
-
-    public static final String MIRRORLINK_DATA_DIR = "mirrorLinkDataDir";//镜像地址采集数据存放目录
-
     public static final String DOWNLOAD_CONIFG_DIR = "downloadConfigDir";//本地下载后的文件存放根目录
 
     public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36";//浏览器用户代理

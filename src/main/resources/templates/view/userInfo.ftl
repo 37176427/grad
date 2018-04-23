@@ -75,19 +75,19 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">姓名：</label>
                             <div class="col-sm-8">
-                                <input id="realName" type="text" maxlength="100" class="form-control" name="realName" >
+                                <input id="realName" type="text" maxlength="100" class="form-control" name="realName" required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户密码：</label>
                             <div class="col-sm-8">
-                                <input id="password" type="text" minlength="6" maxlength="20" class="form-control" name="password">
+                                <input id="password" type="text" minlength="6" maxlength="20" class="form-control" name="password" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">权限：</label>
                             <div class="col-sm-8">
-                                <input id="permission" type="number" min="0" max="2"  class="form-control" name="permission">
+                                <input id="permission" type="number" min="0" max="2"  class="form-control" name="permission"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -111,25 +111,25 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户账号：</label>
                             <div class="col-sm-8">
-                                <input id="userNameEdit"  name="name" minlength="1" maxlength="100" type="text" class="form-control" readonly="true" required="" aria-required="true">
+                                <input id="userNameEdit"  name="name" minlength="1" maxlength="100" type="text" class="form-control" readonly="readonly"  required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">姓名：</label>
                             <div class="col-sm-8">
-                                <input id="realName1" type="text" maxlength="100" class="form-control" name="realName" >
+                                <input id="realName1" type="text" maxlength="100" class="form-control" name="realName"  required="required" aria-required="true" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户密码</label>
                             <div class="col-sm-8">
-                                <input id="password1" type="text" maxlength="100" class="form-control" name="password">
+                                <input id="password1" type="text" maxlength="100" class="form-control" name="password" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">权限</label>
                             <div class="col-sm-8">
-                                <input id="permission1" type="number" min="0" max="2" class="form-control" name="permission">
+                                <input id="permission1" type="number" min="0" max="2" class="form-control" name="permission"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="modal-footer">

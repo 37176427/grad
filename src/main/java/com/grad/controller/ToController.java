@@ -1,7 +1,11 @@
 package com.grad.controller;
 
+import com.grad.eneity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 描述 ：中转控制器
@@ -12,36 +16,85 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ToController {
     //登录页
     @RequestMapping("/")
-    public String defaultIndex(){return "/view/login";}
+    public String defaultIndex(HttpSession session) {
+        if (session.getAttribute("user") != null) {
+            System.out.println("用户已登录 重定向到首页");
+            return "/view/index";
+        }
+        return "/view/login";
+    }
 
-   /* @RequestMapping("tologin")
-    public String login(){
-        return "view/login";
-    }*/
+    /* @RequestMapping("tologin")
+     public String login(){
+         return "view/login";
+     }*/
     @RequestMapping("toindex")
-    public String index(){
-        return "view/index";
+    public String index(HttpSession session) {
+        if (checkUser(session)) {
+            return "view/index";
+        } else {
+            return "/";
+        }
     }
-    @RequestMapping("toShouye")
+
     //首页
-    public String show(){
-        return "view/shouye";
+    @RequestMapping("toShouye")
+    public String show(HttpSession session) {
+        if (checkUser(session)) {
+            return "view/shouye";
+        } else {
+            return "/";
+        }
     }
+
     //用户信息页
     @RequestMapping("toUserInfo")
-    public String userInfo(){
-        return "view/userInfo";
+    public String userInfo(HttpSession session) {
+        if (checkUser(session)) {
+            User nowUser = (User) session.getAttribute("user");
+            if (2 == nowUser.getPermission()) {
+                return "view/userInfo";
+            }
+        }
+        return "/";
     }
+
     //项目管理页
     @RequestMapping("toProject")
-    public String project(){ return "view/project"; }
+    public String project(HttpSession session) {
+        if (checkUser(session)) {
+            return "view/project";
+        } else {
+            return "/";
+        }
+    }
+
     //项目审批页
     @RequestMapping("toProjectManager")
-    public String toProjectManager(){
-        return "view/projectManager";
+    public String toProjectManager(HttpSession session) {
+        if (checkUser(session)) {
+            User nowUser = (User) session.getAttribute("user");
+            if (1 == nowUser.getPermission()) {
+                return "view/projectManager";
+            }
+        }
+        return "/";
     }
+
     //论文管理页
     @RequestMapping("toMaterial")
-    public String toPaper(){ return "view/material";}
+    public String toPaper(HttpSession session) {
+        if (checkUser(session)) {
+            return "view/material";
+        } else {
+            return "/";
+        }
+    }
 
+    /**
+     * 检查是否已登录，已登录返回true，未登录返回false
+     */
+    private boolean checkUser(HttpSession session) {
+        return session.getAttribute("user") != null;
+    }
 }

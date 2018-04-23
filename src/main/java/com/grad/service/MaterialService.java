@@ -96,6 +96,10 @@ public class MaterialService {
     public List<Project> findByName(String name){
         return materialDao.findByName(name);
     }
+
+    /**
+     * 更新文件路径
+     */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public void updateSavePathById(Integer id, String savePath) {
         Project p = materialDao.findById(id);
@@ -104,4 +108,5 @@ public class MaterialService {
             materialDao.updateProject(p);
         }
     }
+
 }

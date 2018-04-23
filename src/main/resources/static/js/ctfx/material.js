@@ -3,17 +3,17 @@ function js_download(a) {
     var url = a.name;
     $.ajax({
         type: "get",
-        url: "/software/location/checkFile",
+        url: "/material/checkFile",
         data: {url: url},
         dataType: "json",
         success: function (data) {
             if (data.result) {
-                window.location.href = "/software/location/download?url=" + url;
+                window.location.href = "/material/download?url=" + url;
             }
             if (!data.result) {
                 swal({
                     title: "警告",
-                    text: "您要下载的软件不存在",
+                    text: "您要下载的资料不存在",
                     type: "warning",
                     confirmButtonColor: "#DD6B55",
                     closeOnConfirm: true
@@ -225,6 +225,7 @@ $(function () {
         } else {
             //获取选中行的值
             $.each(checked, function (i, n) {
+                $("#id1").val(n.id);
                 $("#name1").val(n.name);
                 $("#createUser1").val(n.createUser);
             });

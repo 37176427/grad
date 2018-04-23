@@ -1,6 +1,7 @@
 package com.grad.controller;
 
 import com.grad.common.eneity.QueryResultObject;
+import com.grad.common.utils.Base64Util;
 import com.grad.common.utils.Constants;
 import com.grad.common.utils.FileUtil;
 import com.grad.eneity.Project;
@@ -12,17 +13,16 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +101,7 @@ public class MaterialController {
      */
     @RequestMapping("/upload")
     @ResponseBody
-    public QueryResultObject upload(String name, String createUser, MultipartFile ctFile, HttpSession session) {
+    public QueryResultObject upload(Integer id,String name, String createUser, MultipartFile ctFile, HttpSession session) {
         QueryResultObject resultObject = new QueryResultObject();
         User nowUser = (User) session.getAttribute("user");
         if (nowUser == null) {
@@ -127,11 +127,10 @@ public class MaterialController {
             object.setResult(false);
             return object;
         }
-        Project project = managerList.get(0);
         String fileName = ctFile.getOriginalFilename();
         String rootPath = configService.getPath(Constants.UPLOAD_CONFIG_DIR);
         //文件保存路径
-        String savePath = rootPath + name + Constants.DIR_SEPARATOR + fileName;
+        String savePath = rootPath + id + Constants.DIR_SEPARATOR + fileName;
         //创建文件夹
         FileUtil.mkDirs(savePath.substring(0, savePath.lastIndexOf("/")));
         File file = new File(savePath);
@@ -147,10 +146,10 @@ public class MaterialController {
             OutputStream outputStream = new FileOutputStream(file);
             IOUtils.copy(inputStream, outputStream);
             //上传成功 更新project记录
-            ms.updateSavePathById(project.getId(), savePath);
+            ms.updateSavePathById(id, savePath);
             resultObject.setResult(true);
-            resultObject.setMsg("文件上传成功,文件路径：" + savePath);
-            logger.info("文件上传成功" + savePath);
+            resultObject.setMsg("ID:"+id+"的项目材料上传成功,文件路径：" + savePath);
+            logger.info("ID:"+id+"的项目材料上传成功,文件路径：" + savePath);
             inputStream.close();
             outputStream.close();
         } catch (Exception e) {
@@ -187,5 +186,41 @@ public class MaterialController {
         }
         resultObject.setResult(true);
         return resultObject;
+    }
+
+    /**
+     * 下载文件前检查
+     */
+    @GetMapping(value = "/checkFile")
+    @ResponseBody
+    public QueryResultObject checkFile(String url) {
+        QueryResultObject object = new QueryResultObject();
+        //先解码
+        String filePath = Base64Util.decodeBase64(url);
+        File file = new File(filePath);
+        if (file.exists()) {
+            object.setResult(true);
+        } else {
+            object.setMsg("您下载的文件不存在或已经删除");
+            object.setResult(false);
+        }
+        return object;
+    }
+    /**
+     * 下载文件
+     */
+    @GetMapping(value = "/download")
+    @ResponseBody
+    public void download(String url, HttpServletResponse response) throws Exception {
+        //先解码
+        String filePath = Base64Util.decodeBase64(url);
+        String filename = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length());
+        response.setContentType("application/force-download");
+        response.setHeader("Content-Disposition", "attachment;fileName=" + filename);
+        File file = new File(filePath);
+        InputStream inputStream = new FileInputStream(file);
+        byte[] byteArray = IOUtils.toByteArray(inputStream);
+        OutputStream outputStream = response.getOutputStream();
+        IOUtils.write(byteArray, outputStream);
     }
 }

@@ -54,7 +54,6 @@ public class LoginController {
         String loginPage = "/";
         StringBuilder builder = new StringBuilder();
         builder.append("<script type=\"text/javascript\">");
-        builder.append("alert('注销成功！');");
         //top失效 parent有效
         builder.append("window.parent.location.href='");
         builder.append(loginPage);

@@ -200,5 +200,32 @@ $(function () {
             }
         });
     }
+
 })
+//下载函数处理
+function js_download(a) {
+    var url = a.name;
+    $.ajax({
+        type: "get",
+        url: "/material/checkFile",
+        data: {url: url},
+        dataType: "json",
+        success: function (data) {
+            if (data.result) {
+                window.location.href = "/material/download?url=" + url;
+            }
+            if (!data.result) {
+                swal({
+                    title: "警告",
+                    text: "您要下载的资料不存在",
+                    type: "warning",
+                    confirmButtonColor: "#DD6B55",
+                    closeOnConfirm: true
+                }, function () {
+                });
+            }
+        }
+    });
+    return false;
+}
 

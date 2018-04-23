@@ -60,7 +60,7 @@
                                 </thead>
                             </table>
                         </div>
-                        <label style="height: 50px;left:390px;overflow-x:visible;overflow-y:visible">审核情况描述：0:未审核***1:审核通过***2:审核不通过</label>
+                        <label style="height: 50px;left:390px;overflow-x:visible;overflow-y:visible">审核情况描述:*****0:未审核*****1:审核通过*****2:审核不通过*****</label>
                     </div>
                     <!-- End Example Events -->
                 </div>
@@ -80,43 +80,43 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目编号：</label>
                             <div class="col-sm-8">
-                                <input id="number"  name="number" min="1" minlength="1" maxlength="20" type="number" class="form-control" required="" aria-required="true" >
+                                <input id="number"  name="number" min="1" minlength="1" maxlength="20" type="number" class="form-control"  required="required"  aria-required="true" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目名称</label>
                             <div class="col-sm-8">
-                                <input id="name" type="text" minlength="1" maxlength="50" class="form-control" name="name" >
+                                <input id="name" type="text" minlength="1" maxlength="50" class="form-control" name="name" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">负责人：</label>
                             <div class="col-sm-8">
-                                <input id="manager" type="text" minlength="1" maxlength="12" class="form-control" name="manager" >
+                                <input id="manager" type="text" minlength="1" maxlength="12" class="form-control" name="manager" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目成员：</label>
                             <div class="col-sm-8">
-                                <input id="member" type="text" minlength="1"  class="form-control" name="member">
+                                <input id="member" type="text" minlength="1"  class="form-control" name="member"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目类型：</label>
                             <div class="col-sm-8">
-                                <input id="nature" type="text" minlength="1" class="form-control" name="nature">
+                                <input id="nature" type="text" minlength="1" class="form-control" name="nature"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">具体描述：</label>
                             <div class="col-sm-8">
-                                <textarea id="desc" type="text" rows="5" class="form-control" name="desc"></textarea>
+                                <textarea id="desc" type="text" rows="5" class="form-control" name="desc"  required="required" aria-required="true"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">获奖情况：</label>
                             <div class="col-sm-8">
-                                <input id="awards" type="text" minlength="1" class="form-control" name="awards">
+                                <input id="awards" type="text" minlength="1" class="form-control" name="awards"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -140,43 +140,43 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目编号：</label>
                             <div class="col-sm-8">
-                                <input id="number1"  name="number" minlength="1" maxlength="20" type="number" readonly="true" class="form-control"  required="" aria-required="true">
+                                <input id="number1"  name="number" minlength="1" maxlength="20" type="number" readonly="readonly" class="form-control"  required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目名称：</label>
                             <div class="col-sm-8">
-                                <input id="name1" type="text" maxlength="100" class="form-control" name="name" >
+                                <input id="name1" type="text" maxlength="100" class="form-control" name="name" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">负责人</label>
                             <div class="col-sm-8">
-                                <input id="manager1" type="text" maxlength="100" class="form-control" name="manager">
+                                <input id="manager1" type="text" maxlength="100" class="form-control" name="manager"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目成员</label>
                             <div class="col-sm-8">
-                                <input id="member1" type="text" maxlength="100" class="form-control" name="member">
+                                <input id="member1" type="text" maxlength="100" class="form-control" name="member"  required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目性质</label>
                             <div class="col-sm-8">
-                                <input id="nature1" type="text"  maxlength="100" class="form-control" name="nature">
+                                <input id="nature1" type="text"  maxlength="100" class="form-control" name="nature" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">项目描述</label>
                             <div class="col-sm-8">
-                                <textarea id="desc1" type="text" rows="5" class="form-control" name="desc"></textarea>
+                                <textarea id="desc1" type="text" rows="5" class="form-control" name="desc" required="required"  aria-required="true"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">获奖情况</label>
                             <div class="col-sm-8">
-                                <input id="awards1" type="text" maxlength="100" class="form-control" name="awards">
+                                <input id="awards1" type="text" maxlength="100" class="form-control" name="awards" required="required"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">

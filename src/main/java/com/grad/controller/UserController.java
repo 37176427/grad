@@ -69,7 +69,7 @@ public class UserController {
     }
 
     /**
-     * 根据追踪name删除用户信息
+     * 根据name删除用户信息
      */
     @ResponseBody
     @PostMapping(value = "/delUser")

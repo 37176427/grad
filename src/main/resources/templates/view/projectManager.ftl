@@ -56,7 +56,7 @@
                                 </thead>
                             </table>
                         </div>
-                        <label style="height: 50px;left:390px;overflow-x:visible;overflow-y:visible">审核情况描述：0:未审核***1:审核通过***2:审核不通过</label>
+                        <label style="height: 50px;left:390px;overflow-x:visible;overflow-y:visible">审核情况描述:*****0:未审核*****1:审核通过*****2:审核不通过*****</label>
                     </div>
                     <!-- End Example Events -->
                 </div>
@@ -122,13 +122,13 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">审核通过</label>
                             <div class="col-sm-8">
-                                <input id="checked1" type="radio" value="1" class="form-control" name="status">
+                                <input id="checked1" type="radio" value="1" class="form-control" name="status" required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">审核不通过</label>
                             <div class="col-sm-8">
-                                <input id="checked2" type="radio" value="2" class="form-control" name="status" >
+                                <input id="checked2" type="radio" value="2" class="form-control" name="status" required="required" aria-required="true">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -140,30 +140,6 @@
             </div>
         </div>
     </div>
-    <!--<div class="modal inmodal fade" id="myModal7" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">查询工具(名称)</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal m-t" id="commentForm3" name="commentForm3" action="/system/sample/query" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">工具名称：</label>
-                            <div class="col-sm-8">
-                                <input id="cname"  name="sampleName" minlength="1" maxlength="100" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                            <button type="submit"  class="btn btn-primary" >保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>-->
 </div>
 <!-- 全局js -->
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>

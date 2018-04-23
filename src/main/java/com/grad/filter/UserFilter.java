@@ -1,7 +1,5 @@
 package com.grad.filter;
 
-import com.sun.deploy.net.HttpResponse;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +13,7 @@ import java.io.PrintWriter;
  * 时间 ：2018/4/12 14:29
  **/
 //todo 路径未完善
-//@WebFilter(filterName = "userFilter", urlPatterns = "/*" )
+//@WebFilter(filterName = "userFilter", urlPatterns = "/view/**")
 public class UserFilter implements Filter {
     @Override
     public void destroy() {
@@ -31,8 +29,9 @@ public class UserFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String url = httpServletRequest.getRequestURI();
         System.out.println("过滤："+url);
+        PrintWriter out = httpServletResponse.getWriter();
         //如果是登录 注销页面 放行
-        if (url.contains("login") ||url.contains("tologin") || url.contains("logout")) {
+        if ("/".equals(url)  || url.contains("logout") || url.contains("login") || url.contains("to")) {
             chain.doFilter(httpServletRequest, httpServletResponse);
         }else
         {
@@ -43,8 +42,8 @@ public class UserFilter implements Filter {
             }
             //拦截
             httpServletResponse.setContentType("text/html;charset=utf-8");
-            PrintWriter out = httpServletResponse.getWriter();
-            String loginPage = "/tologin";
+
+            String loginPage = "/";
             StringBuilder builder = new StringBuilder();
             builder.append("<script type=\"text/javascript\">");
             builder.append("alert('你还没有登录！请登录后操作');");
@@ -53,8 +52,11 @@ public class UserFilter implements Filter {
             builder.append("';");
             builder.append("</script>");
             out.print(builder.toString());
+
             //httpServletResponse.sendRedirect("/tologin");
         }
-
+        if(out != null){
+            out.close();
+        }
     }
 }

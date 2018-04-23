@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,7 +150,6 @@ public class ProjectManagerService {
             projectResult.setNature(project.getNature());
             projectResult.setDesc(project.getDesc());
             projectResult.setAwards(project.getAwards());
-            projectResult.setcreateTime(project.getcreateTime());
             projectResult.setStatus(project.getStatus());
             projectResult.setCreateUser(project.getCreateUser());
             //审核人为当前用户
