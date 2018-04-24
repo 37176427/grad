@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 描述 ：
+ * 描述 ：材料controller
  * 作者 ：WangYunHe
  * 时间 ：2018/4/20 13:52
  **/
@@ -101,7 +101,7 @@ public class MaterialController {
      */
     @RequestMapping("/upload")
     @ResponseBody
-    public QueryResultObject upload(Integer id,String name, String createUser, MultipartFile ctFile, HttpSession session) {
+    public QueryResultObject upload(Integer id, String name, String createUser, MultipartFile ctFile, HttpSession session) {
         QueryResultObject resultObject = new QueryResultObject();
         User nowUser = (User) session.getAttribute("user");
         if (nowUser == null) {
@@ -148,8 +148,8 @@ public class MaterialController {
             //上传成功 更新project记录
             ms.updateSavePathById(id, savePath);
             resultObject.setResult(true);
-            resultObject.setMsg("ID:"+id+"的项目材料上传成功,文件路径：" + savePath);
-            logger.info("ID:"+id+"的项目材料上传成功,文件路径：" + savePath);
+            resultObject.setMsg("ID:" + id + "的项目材料上传成功,文件路径：" + savePath);
+            logger.info("ID:" + id + "的项目材料上传成功,文件路径：" + savePath);
             inputStream.close();
             outputStream.close();
         } catch (Exception e) {
@@ -159,7 +159,6 @@ public class MaterialController {
         }
         return resultObject;
     }
-
 
 
     /**
@@ -206,6 +205,7 @@ public class MaterialController {
         }
         return object;
     }
+
     /**
      * 下载文件
      */

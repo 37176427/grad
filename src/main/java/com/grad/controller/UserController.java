@@ -7,19 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 描述 ：
+ * 描述 ：用户管理页controller
  * 作者 ：WangYunHe
  * 时间 ：2018/4/13 14:07
  **/
@@ -32,11 +26,11 @@ public class UserController {
     private UserService us;
 
     /**
-     *分页查询
+     * 分页查询
      */
     @RequestMapping("/initPaging")
     @ResponseBody
-    public QueryResultObject initPaging(Integer pageNumber, Integer pageSize, String userName){
+    public QueryResultObject initPaging(Integer pageNumber, Integer pageSize, String userName) {
         QueryResultObject object = new QueryResultObject();
         Map<String, Object> map = us.limitQuery(pageNumber, pageSize, userName);
         object.setMsg("查询成功");
@@ -50,7 +44,7 @@ public class UserController {
      */
     @RequestMapping("queryByName")
     @ResponseBody
-    public QueryResultObject queryByName(String userName){
+    public QueryResultObject queryByName(String userName) {
         return us.findByName(userName);
     }
 
@@ -64,7 +58,7 @@ public class UserController {
     //修改用户
     @RequestMapping("/update")
     @ResponseBody
-    public QueryResultObject updateUser(User user){
+    public QueryResultObject updateUser(User user) {
         return us.updateUserService(user);
     }
 
@@ -102,6 +96,7 @@ public class UserController {
 
     /**
      * 批量删除用户信息
+     *
      * @param ids 采用","分隔的字符串
      * @return 删除结果
      */

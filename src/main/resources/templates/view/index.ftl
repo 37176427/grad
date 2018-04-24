@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="J_menuPage" href="/statAnalyze">
+                    <a class="J_menuPage" href="/toStatAnalyze">
                         <i class="fa fa-pie-chart"></i>
                         <span class="nav-label">统计分析</span>
                     </a>

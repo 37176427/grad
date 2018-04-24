@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 描述 ：
+ * 描述 ：ProjectManagerDao
  * 作者 ：WangYunHe
  * 时间 ：2018/4/19 15:01
  **/
@@ -21,7 +21,6 @@ public interface ProjectManagerDao {
     Integer total();
 
     Integer findtotalByName(String projectName);
-
 
     void updateProject(Project projectResult);
 

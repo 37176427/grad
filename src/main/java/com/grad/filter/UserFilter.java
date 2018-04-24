@@ -1,14 +1,13 @@
 package com.grad.filter;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 描述 ：
+ * 描述 ：UserFilter
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 14:29
  **/
@@ -28,16 +27,14 @@ public class UserFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String url = httpServletRequest.getRequestURI();
-        System.out.println("过滤："+url);
+        System.out.println("过滤：" + url);
         PrintWriter out = httpServletResponse.getWriter();
         //如果是登录 注销页面 放行
-        if ("/".equals(url)  || url.contains("logout") || url.contains("login") || url.contains("to")) {
+        if ("/".equals(url) || url.contains("logout") || url.contains("login") || url.contains("to")) {
             chain.doFilter(httpServletRequest, httpServletResponse);
-        }else
-        {
+        } else {
             //已经登录 放行
-            if (httpServletRequest.getSession().getAttribute("user")!=null)
-            {
+            if (httpServletRequest.getSession().getAttribute("user") != null) {
                 chain.doFilter(httpServletRequest, httpServletResponse);
             }
             //拦截
@@ -52,10 +49,9 @@ public class UserFilter implements Filter {
             builder.append("';");
             builder.append("</script>");
             out.print(builder.toString());
-
             //httpServletResponse.sendRedirect("/tologin");
         }
-        if(out != null){
+        if (out != null) {
             out.close();
         }
     }

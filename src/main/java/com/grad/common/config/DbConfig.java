@@ -4,14 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 描述 ：
+ * 描述 ：数据库基本配置
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 11:24
  **/
-
-/**
- * 数据库基本配置
- */
 @Configuration
 @ConfigurationProperties(prefix = "db")
 public class DbConfig {

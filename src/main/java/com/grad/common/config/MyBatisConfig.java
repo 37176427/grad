@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -22,18 +21,20 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * 描述 ：
+ * 描述 ：SqlSessionFactory Bean
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 11:38
  **/
 @Configuration
 @EnableTransactionManagement
 public class MyBatisConfig {
+
+    // 连接池
     @Resource
     private DataSource metaDb;
 
     @Bean(name = "metaDbSqlSessionFactory")
-    public SqlSessionFactory metaDbSqlSessionFactory(){
+    public SqlSessionFactory metaDbSqlSessionFactory() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(metaDb);
         bean.setTypeAliasesPackage(getTypeAliasePackages());
@@ -62,7 +63,7 @@ public class MyBatisConfig {
         }
     }
 
-    private String getTypeAliasePackages(){
+    private String getTypeAliasePackages() {
         List<String> packages = new ArrayList<>();
         packages.add("com.grad.eneity");
         return StringUtils.arrayToDelimitedString(packages.toArray(), ";");

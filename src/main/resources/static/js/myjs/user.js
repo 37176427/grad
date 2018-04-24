@@ -29,13 +29,10 @@ $(function () {
         }
     });
     //进行初始化表格数据
-    initTableForTool(null);
+    initUserTable(null);
     //重置按钮
     $("#reset").click(function () {
-        var userName = $("#searchUserName").val();
-        if (userName !== null && userName !== "") {
-            initTableForTool(null);
-        }
+        initUserTable(null);
         $("#searchUserName").val("");
     });
     //搜索按钮
@@ -51,7 +48,7 @@ $(function () {
             }, function () {
             });
         }else {
-            initTableForTool(userName);
+            initUserTable(userName);
         }
     });
     //ajax验证工具是否存在

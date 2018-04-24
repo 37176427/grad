@@ -1,12 +1,10 @@
 package com.grad.eneity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 描述 ：
+ * 描述 ：Project实体类
  * 作者 ：WangYunHe
  * 时间 ：2018/4/18 14:32
  **/

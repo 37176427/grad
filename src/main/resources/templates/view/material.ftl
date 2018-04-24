@@ -141,6 +141,6 @@
 <script src="/static/js/content.js"></script>
 <!-- Sweet alert -->
 <script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
-<script src="/static/js/ctfx/material.js"></script>
+<script src="/static/js/myjs/material.js"></script>
 </body>
 </html>

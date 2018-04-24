@@ -3,12 +3,11 @@ package com.grad.controller;
 import com.grad.eneity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 
 /**
- * 描述 ：中转控制器
+ * 描述 ：主页中转控制器
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 12:59
  **/
@@ -18,16 +17,13 @@ public class ToController {
     @RequestMapping("/")
     public String defaultIndex(HttpSession session) {
         if (session.getAttribute("user") != null) {
-            System.out.println("用户已登录 重定向到首页");
+            //用户已登录 重定向到首页
             return "/view/index";
         }
         return "/view/login";
     }
 
-    /* @RequestMapping("tologin")
-     public String login(){
-         return "view/login";
-     }*/
+    //最外层框架首页
     @RequestMapping("toindex")
     public String index(HttpSession session) {
         if (checkUser(session)) {
@@ -81,11 +77,21 @@ public class ToController {
         return "/";
     }
 
-    //论文管理页
+    //材料管理页
     @RequestMapping("toMaterial")
     public String toPaper(HttpSession session) {
         if (checkUser(session)) {
             return "view/material";
+        } else {
+            return "/";
+        }
+    }
+
+    //统计分析页
+    @RequestMapping("toStatAnalyze")
+    public String toStatAnalyze(HttpSession session) {
+        if (checkUser(session)) {
+            return "view/statAnalyze";
         } else {
             return "/";
         }

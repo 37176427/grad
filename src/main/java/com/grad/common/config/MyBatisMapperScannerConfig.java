@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Repository;
 
 /**
+ * 描述 ：mybatis扫描包配置类
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 11:45
  **/

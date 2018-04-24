@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
  **/
 @Service
 public class SystemConfigService {
+
     @Autowired
     private SystemConfigDao systemConfigDao;
 

@@ -248,6 +248,6 @@
 <!-- util JS-->
 <script src="/static/js/util/dateFtt.js"></script>
 <!--user.js-->
-<script src="/static/js/ctfx/user.js"></script>
+<script src="/static/js/myjs/user.js"></script>
 </body>
 </html>

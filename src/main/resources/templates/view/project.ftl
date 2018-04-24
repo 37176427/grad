@@ -305,6 +305,6 @@
 <!-- util JS-->
 <script src="/static/js/util/dateFtt.js"></script>
 <!--user.js-->
-<script src="/static/js/ctfx/project.js"></script>
+<script src="/static/js/myjs/project.js"></script>
 </body>
 </html>

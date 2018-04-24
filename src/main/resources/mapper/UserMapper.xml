@@ -3,20 +3,10 @@
 <mapper namespace="com.grad.dao.UserDao">
 
     <select id="findByNameAndPassword" parameterType="com.grad.eneity.User" resultType="com.grad.eneity.User">
-        SELECT * FROM user  WHERE name=#{name} AND password=#{password}
+        SELECT *
+        FROM user
+        WHERE name = #{name} AND password = #{password}
     </select>
-
-    <select id="findAll" resultType="com.grad.eneity.User">
-        SELECT * FROM user WHERE 1=1;
-    </select>
-    
-    <select id="findUserById" parameterType="java.lang.Integer" resultType="com.grad.eneity.User">
-        SELECT * FROM user WHERE id=#{id}
-    </select>
-    
-    <delete id="deleteUserById" parameterType="java.lang.Integer">
-        DELETE FROM user where id=#{id}
-    </delete>
 
     <!--进行分页-->
     <select id="initPaging" resultType="com.grad.eneity.User">
@@ -31,50 +21,53 @@
         FROM user
     </select>
     <!--带参数查询总数-->
-    <select id="findtotalBySampleName" resultType="java.lang.Integer">
+    <select id="findtotalByName" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM user
-        WHERE name=#{username}
+        WHERE name LIKE CONCAT('%',#{name},'%')
     </select>
     <!--带参数的查询-->
     <select id="initQueryPaging" resultType="com.grad.eneity.User">
         SELECT *
-        FROM user WHERE name=#{userName}
+        FROM user
+        WHERE name LIKE CONCAT('%',#{name},'%')
         ORDER BY id DESC
         LIMIT #{start}, #{pageSize}
     </select>
     <!--根据名称查询-->
     <select id="findByName" parameterType="string" resultType="com.grad.eneity.User">
-        SELECT  * FROM  user
+        SELECT *
+        FROM user
         WHERE
-        name=#{userName}
+            name = #{userName}
     </select>
 
     <!--添加用户-->
     <insert id="addUser" parameterType="com.grad.eneity.User">
-        INSERT INTO user(name,password,realName,permission)
-        VALUES (#{name},#{password},#{realName},#{permission})
+        INSERT INTO user (name, password, realName, permission)
+        VALUES (#{name}, #{password}, #{realName}, #{permission})
     </insert>
     <!--更新用户信息-->
     <update id="updateUser" parameterType="com.grad.eneity.User">
-        UPDATE user SET
-            name=#{name},
-            realName=#{realName},
-            password=#{password},
-            permission=#{permission}
-        WHERE id=#{id}
+        UPDATE user
+        SET
+            name       = #{name},
+            realName   = #{realName},
+            password   = #{password},
+            permission = #{permission}
+        WHERE id = #{id}
     </update>
     <!--条件删除-->
     <delete id="delByCondition">
         DELETE FROM user
         WHERE id = #{id}
-        AND realName = #{realName}
+              AND realName = #{realName}
     </delete>
     <!--批量删除用户信息-->
-    <delete id="batchDelUser" >
-        DELETE  FROM user
+    <delete id="batchDelUser">
+        DELETE FROM user
         WHERE id IN
-        <foreach collection="array" item = "id" open="(" separator="," close=")">
+        <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>

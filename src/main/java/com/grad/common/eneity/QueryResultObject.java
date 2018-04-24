@@ -3,16 +3,19 @@ package com.grad.common.eneity;
 import java.util.Map;
 
 /**
- * 描述 ：
+ * 描述 ：返回数据包装类
  * 作者 ：WangYunHe
  * 时间 ：2018/4/16 14:11
  **/
 public class QueryResultObject {
-    private boolean result;//查询的结果
 
-    private Map<String,?> data;//查询的数据集合
+    //查询的结果
+    private boolean result;
+    //查询的数据集合
+    private Map<String, ?> data;
+    //描述消息
+    private String msg;
 
-    private String msg;//描述消息
     public boolean isResult() {
         return result;
     }
@@ -39,13 +42,21 @@ public class QueryResultObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         QueryResultObject that = (QueryResultObject) o;
 
-        if (result != that.result) return false;
-        if (data != null ? !data.equals(that.data) : that.data != null) return false;
+        if (result != that.result) {
+            return false;
+        }
+        if (data != null ? !data.equals(that.data) : that.data != null) {
+            return false;
+        }
         return msg != null ? msg.equals(that.msg) : that.msg == null;
 
     }

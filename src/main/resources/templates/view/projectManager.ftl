@@ -160,6 +160,6 @@
 <!-- util JS-->
 <script src="/static/js/util/dateFtt.js"></script>
 <!--user.js-->
-<script src="/static/js/ctfx/projectManager.js"></script>
+<script src="/static/js/myjs/projectManager.js"></script>
 </body>
 </html>

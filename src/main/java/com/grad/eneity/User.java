@@ -3,11 +3,11 @@ package com.grad.eneity;
 import java.io.Serializable;
 
 /**
- * 描述 ：
+ * 描述 ：User实体类
  * 作者 ：WangYunHe
  * 时间 ：2018/4/12 11:50
  **/
-public class User implements Serializable{
+public class User implements Serializable {
     private Integer id;
     private String name;
     private String password;

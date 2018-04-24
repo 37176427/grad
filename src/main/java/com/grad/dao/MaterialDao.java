@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 描述 ：
+ * 描述 ：MaterialDao
  * 作者 ：WangYunHe
  * 时间 ：2018/4/20 13:52
  **/
 @Repository
 public interface MaterialDao {
+
     List<Project> fuzzyQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("name") String name);
 
     Integer totalByName(@Param("name") String name);

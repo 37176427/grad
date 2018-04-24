@@ -7,14 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 描述 ：
+ * 描述 ：ProjectDao
  * 作者 ：WangYunHe
  * 时间 ：2018/4/18 14:37
  **/
 @Repository
 public interface ProjectDao {
-
-    Integer findtotalByNumber(Integer number);
 
     List<Project> initQueryPaging(@Param("start") Integer start, @Param("pageSize") Integer pageSize, @Param("name") String name);
 
